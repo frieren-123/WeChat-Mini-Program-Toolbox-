@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="card">
+    <view class="muted" style="margin-bottom: 24rpx;">输入选项（用换行或逗号分隔）</view>
+    <textarea
+      class="textarea"
+      value="{{text}}"
+      placeholder="例如：盖饭，面条，麻辣烫"
+      bindinput="onInput"
+      maxlength="500"
+    />
+    <view class="options-count muted" wx:if="{{options.length > 0}}">
+      已识别 {{options.length}} 个选项
+    </view>
+  </view>
+
+  <view class="result-area" wx:if="{{currentOption}}">
+    <view class="result-label muted">{{isRunning ? '正在纠结...' : '决定就是：'}}</view>
+    <view class="result-value {{isRunning ? 'running' : 'winner'}}">{{currentOption}}</view>
+  </view>
+
+  <button
+    class="btn-start"
+    hover-class="hover-btn"
+    bindtap="onStart"
+    disabled="{{isRunning}}"
+  >
+    {{isRunning ? '停止' : '开始随机'}}
+  </button>
+</view>

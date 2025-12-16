@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="card">
+    <view class="row">
+      <view class="label muted">类型</view>
+      <picker mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view class="picker">{{categories[categoryIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="row">
+      <view class="label muted">输入</view>
+      <input class="input" type="digit" value="{{inputValue}}" placeholder="请输入数字" bindinput="onInput" />
+    </view>
+
+    <view class="row">
+      <view class="label muted">从</view>
+      <picker mode="selector" range="{{fromUnits}}" value="{{fromIndex}}" bindchange="onFromChange">
+        <view class="picker">{{fromUnits[fromIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="row">
+      <view class="label muted">到</view>
+      <picker mode="selector" range="{{toUnits}}" value="{{toIndex}}" bindchange="onToChange">
+        <view class="picker">{{toUnits[toIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="result">
+      <view class="muted">结果</view>
+      <view class="resultValue">{{resultText}}</view>
+    </view>
+  </view>
+</view>

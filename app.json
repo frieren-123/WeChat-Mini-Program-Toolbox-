@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/about/index"
+  ],
+  "subpackages": [
+    {
+      "root": "package-tools",
+      "pages": [
+        "pages/calculator/index",
+        "pages/unit-convert/index",
+        "pages/qr-generator/index",
+        "pages/random/index",
+        "pages/pomodoro/index"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTitleText": "工具箱",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

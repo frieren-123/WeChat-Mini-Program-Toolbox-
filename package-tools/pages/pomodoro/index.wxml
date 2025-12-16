@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="timer-card">
+    <view class="progress-ring">
+      <!-- 简单的圆环效果，实际可用 canvas 优化 -->
+      <view class="time-display {{isRunning ? 'active' : ''}}">
+        {{timeStr}}
+      </view>
+      <view class="status-text muted">{{statusText}}</view>
+    </view>
+  </view>
+
+  <view class="settings-panel" wx:if="{{!isRunning}}">
+    <text class="label">专注时长: {{workTime}} 分钟</text>
+    <slider 
+      min="1" 
+      max="120" 
+      value="{{workTime}}" 
+      show-value 
+      activeColor="#FF3B30" 
+      bindchange="onTimeChange" 
+      bindchanging="onTimeChange"
+    />
+  </view>
+
+  <view class="controls">
+    <button 
+      class="btn-main {{isRunning ? 'btn-stop' : 'btn-start'}}" 
+      bindtap="onToggleTimer"
+      hover-class="hover-btn"
+    >
+      {{isRunning ? '放弃专注' : '开始专注 (' + workTime + '分钟)'}}
+    </button>
+  </view>
+
+  <view class="tips muted">
+    <view>💡 保持专注，不要切出小程序哦</view>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+page {
+  /* 品牌色：活力蓝 */
+  --primary: #007AFF;
+  --primary-light: #E5F1FF;
+  
+  /* 功能色 */
+  --danger: #FF3B30;
+  --warning: #FF9500;
+  --success: #34C759;
+  
+  /* 中性色 */
+  --bg-body: #F2F2F7; /* 浅灰背景 */
+  --bg-card: #FFFFFF;
+  --text-main: #1C1C1E;
+  --text-secondary: #8E8E93;
+  --border: #E5E5EA;
+
+  background: var(--bg-body);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  font-size: 32rpx;
+  box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+view, button, text, input, textarea {
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 32rpx;
+}
+
+/* 通用卡片样式：投影 + 圆角 */
+.card {
+  background: var(--bg-card);
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.04);
+  margin-bottom: 24rpx;
+}
+
+.muted {
+  color: var(--text-secondary);
+}
+
+/* 按钮点击态 */
+.hover-btn {
+  opacity: 0.7;
+  transform: scale(0.98);
+}

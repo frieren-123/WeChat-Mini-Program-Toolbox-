@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="card">
+    <view class="muted" style="margin-bottom: 24rpx;">输入内容</view>
+    <textarea 
+      class="textarea" 
+      value="{{text}}" 
+      placeholder="输入网址或文本，生成二维码" 
+      bindinput="onInput" 
+      maxlength="200" 
+    />
+
+    <view style="height: 32rpx;"></view>
+
+    <button class="btn-generate" hover-class="hover-btn" bindtap="onGenerate">生成二维码</button>
+  </view>
+
+  <view class="card result-card" wx:if="{{qrUrl}}">
+    <image class="qr-image" src="{{qrUrl}}" mode="aspectFit" show-menu-by-longpress></image>
+    <view class="hint muted">长按图片可保存或发送给朋友</view>
+  </view>
+</view>

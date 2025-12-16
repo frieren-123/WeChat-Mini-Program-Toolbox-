@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="header">
+    <view class="greeting">👋 嗨，欢迎回来</view>
+    <view class="title">我的万能口袋</view>
+  </view>
+
+  <view class="grid">
+    <view
+      class="tile {{item.enabled ? '' : 'tile--disabled'}}"
+      wx:for="{{tools}}"
+      wx:key="id"
+      data-index="{{index}}"
+      bindtap="onToolTap"
+      hover-class="tile--hover"
+      hover-stay-time="100"
+    >
+      <view class="tileIcon" style="background: {{item.bg}}; color: {{item.color}};">
+        <image wx:if="{{item.iconPath}}" src="{{item.iconPath}}" style="width: 60%; height: 60%;" mode="aspectFit" />
+        <text wx:else>{{item.short}}</text>
+      </view>
+      <view class="tileInfo">
+        <view class="tileName">{{item.name}}</view>
+        <view class="tileArrow">></view>
+      </view>
+      <view wx:if="{{!item.enabled}}" class="tileBadge">开发中</view>
+    </view>
+  </view>
+</view>

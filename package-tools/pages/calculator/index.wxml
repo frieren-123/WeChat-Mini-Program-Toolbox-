@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="display">
+    <view class="displayText">{{display}}</view>
+    <view wx:if="{{pendingOperator}}" class="pending muted">{{accumulator}} {{pendingOperator}}</view>
+  </view>
+
+  <view class="pad">
+    <button class="btn btn--ghost" bindtap="onClear">AC</button>
+    <button class="btn btn--ghost" bindtap="onBackspace">DEL</button>
+    <button class="btn btn--ghost" bindtap="onOperator" data-op="÷">÷</button>
+    <button class="btn btn--op" bindtap="onOperator" data-op="×">×</button>
+
+    <button class="btn" bindtap="onDigit" data-digit="7">7</button>
+    <button class="btn" bindtap="onDigit" data-digit="8">8</button>
+    <button class="btn" bindtap="onDigit" data-digit="9">9</button>
+    <button class="btn btn--op" bindtap="onOperator" data-op="-">-</button>
+
+    <button class="btn" bindtap="onDigit" data-digit="4">4</button>
+    <button class="btn" bindtap="onDigit" data-digit="5">5</button>
+    <button class="btn" bindtap="onDigit" data-digit="6">6</button>
+    <button class="btn btn--op" bindtap="onOperator" data-op="+">+</button>
+
+    <button class="btn" bindtap="onDigit" data-digit="1">1</button>
+    <button class="btn" bindtap="onDigit" data-digit="2">2</button>
+    <button class="btn" bindtap="onDigit" data-digit="3">3</button>
+    <button class="btn btn--equals" bindtap="onEquals">=</button>
+
+    <button class="btn btn--zero" bindtap="onDigit" data-digit="0">0</button>
+    <button class="btn" bindtap="onDot">.</button>
+  </view>
+</view>

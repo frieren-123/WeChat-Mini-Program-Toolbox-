@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="header">
+    <view class="logo-placeholder">
+      <image 
+        src="/images/006.jpg" 
+        mode="aspectFill" 
+        style="width: 100%; height: 100%; border-radius: 40rpx; display: block;" 
+      />
+    </view>
+    <view class="app-name" style="color: #000;">万能口袋</view>
+    <view class="version muted">Version 1.0.0</view>
+  </view>
+
+  <view class="card menu-list">
+    <button class="menu-item" open-type="feedback">
+      <view class="menu-left">
+        <text>📝</text>
+        <text class="menu-text">功能建议 / 反馈</text>
+      </view>
+      <view class="menu-arrow">></view>
+    </button>
+    
+    <view class="divider"></view>
+
+    <button class="menu-item" bindtap="onClearCache">
+      <view class="menu-left">
+        <text>🧹</text>
+        <text class="menu-text">清除缓存</text>
+      </view>
+      <view class="menu-arrow">></view>
+    </button>
+  </view>
+
+  <view class="footer muted">
+    <view>Designed by You</view>
+    <view style="font-size: 20rpx; margin-top: 8rpx;">Powered by WeChat Mini Program</view>
+  </view>
+</view>

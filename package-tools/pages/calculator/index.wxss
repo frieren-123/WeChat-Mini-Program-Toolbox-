@@ -1,0 +1,101 @@
+.display {
+  background: var(--bg-card);
+  border-radius: 32rpx;
+  padding: 40rpx 32rpx;
+  margin-bottom: 32rpx;
+  min-height: 220rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.04);
+}
+
+.displayText {
+  font-size: 80rpx;
+  font-weight: 300;
+  text-align: right;
+  word-break: break-all;
+  line-height: 1.1;
+  color: var(--text-main);
+}
+
+.pending {
+  margin-top: 16rpx;
+  text-align: right;
+  font-size: 28rpx;
+  color: var(--text-secondary);
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24rpx;
+}
+
+/* 修复小程序 button 默认样式干扰 */
+button {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  font-weight: normal;
+  box-sizing: border-box;
+}
+
+button::after {
+  border: none;
+}
+
+.btn {
+  height: 140rpx; /* 更大的按钮 */
+  border-radius: 40rpx; /* 更圆润 */
+  border: none;
+  background: #FFFFFF;
+  font-size: 44rpx;
+  font-weight: 500;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.03);
+  transition: all 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.92);
+  background: #F2F2F7;
+}
+
+.btn--ghost {
+  background: #F2F2F7;
+  color: var(--text-main);
+  font-size: 36rpx;
+}
+
+.btn--op {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 48rpx;
+}
+
+.btn--equals {
+  grid-row: span 2;
+  grid-column: 4;
+  height: auto !important; /* Let grid handle height */
+  background: var(--primary);
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 8rpx 24rpx rgba(0, 122, 255, 0.3);
+}
+
+.btn--equals:active {
+  background: #0062CC;
+}
+
+.btn--zero {
+  grid-column: span 2;
+  width: 100%;
+  text-align: left;
+  padding-left: 56rpx !important;
+  justify-content: flex-start;
+}

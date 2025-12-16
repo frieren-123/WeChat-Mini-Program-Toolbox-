@@ -1,0 +1,85 @@
+.timer-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600rpx;
+  position: relative;
+}
+
+.progress-ring {
+  width: 480rpx;
+  height: 480rpx;
+  border-radius: 50%;
+  border: 24rpx solid var(--bg-body);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-card);
+  box-shadow: 0 12rpx 32rpx rgba(0,0,0,0.05);
+}
+
+.time-display {
+  font-size: 100rpx;
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-main);
+}
+
+.time-display.active {
+  color: var(--danger);
+  font-weight: 400;
+}
+
+.status-text {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+}
+
+.settings-panel {
+  background: var(--bg-card);
+  padding: 32rpx;
+  border-radius: 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.settings-panel .label {
+  display: block;
+  margin-bottom: 16rpx;
+  font-weight: 500;
+  text-align: center;
+}
+
+.controls {
+  margin-top: 16rpx;
+}
+
+.btn-main {
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 56rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.15);
+  transition: all 0.3s;
+  letter-spacing: 2rpx;
+}
+
+.btn-start {
+  background: linear-gradient(135deg, #007AFF, #0055FF);
+  box-shadow: 0 12rpx 32rpx rgba(0, 122, 255, 0.35);
+}
+
+.btn-stop {
+  background: linear-gradient(135deg, #FF3B30, #FF2D55);
+  box-shadow: 0 12rpx 32rpx rgba(255, 59, 48, 0.35);
+}
+
+.tips {
+  margin-top: 48rpx;
+  text-align: center;
+  font-size: 24rpx;
+}
