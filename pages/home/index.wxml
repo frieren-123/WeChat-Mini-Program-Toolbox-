@@ -1,0 +1,80 @@
+<view class="container">
+  <!-- 顶部问候 -->
+  <view class="header">
+    <view class="greeting-box">
+      <text class="greeting-title">Home</text>
+      <text class="greeting-text">{{greeting}}</text>
+    </view>
+    <image class="avatar" src="/images/008.jpg" mode="aspectFill" bindtap="onAvatarTap"></image>
+  </view>
+
+  <!-- 随机文案卡片 -->
+  <view class="quote-card" bindtap="onQuoteTap">
+    <view class="quote-content">
+      <text class="quote-text">{{quote.text}}</text>
+      <text class="quote-source">—— {{quote.source}}</text>
+    </view>
+    <view class="quote-icon">✎</view>
+  </view>
+
+  <!-- 随机图片卡片 -->
+  <view class="image-card" bindtap="onImageTap">
+    <image class="random-img" src="{{randomImage}}" mode="aspectFill"></image>
+    <view class="image-overlay">
+      <text class="image-hint">✨ 点击许愿</text>
+    </view>
+  </view>
+
+  <!-- 底部功能区 -->
+  <view class="bottom-grid">
+    <!-- 时间魔法 (年进度) -->
+    <view class="grid-item" bindtap="onTimeMagicTap">
+      <view class="grid-header">
+        <text class="grid-title">Time Magic</text>
+        <text class="grid-desc">{{yearProgress}}%</text>
+      </view>
+      
+      <!-- 翻动的魔法书动画 -->
+      <view class="book-container">
+        <view class="book">
+          <view class="page"></view>
+          <view class="page"></view>
+          <view class="page"></view>
+        </view>
+      </view>
+
+      <view class="progress-bar">
+        <view class="progress-inner" style="width: {{yearProgress}}%;"></view>
+      </view>
+    </view>
+
+    <!-- 宝箱怪 (每日运势) -->
+    <view class="grid-item" bindtap="onMimicTap">
+      <view class="grid-header">
+        <text class="grid-title">宝箱怪</text>
+        <text class="grid-desc">{{mimicStatus}}</text>
+      </view>
+      <view class="contact-icon-box">
+        <image class="mimic-icon" src="https://cdn-icons-png.flaticon.com/512/4230/4230569.png" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 许愿彩蛋弹窗 -->
+  <view class="modal-mask" wx:if="{{showWishModal}}" bindtap="closeWishModal">
+    <view class="modal-content" catchtap="true">
+      <view class="modal-title">彩蛋愿望</view>
+      <view class="modal-desc">希望你平平安安开开心心</view>
+      
+      <!-- 跳动的角色 (随机显示 frieren001 或 frieren002) -->
+      <view class="cake-container">
+        <image class="cake-img" src="{{eggImage}}" mode="aspectFit" binderror="onImageError"></image>
+      </view>
+
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closeWishModal">跳过</button>
+        <button class="modal-btn confirm" bindtap="onMakeWish">许愿</button>
+      </view>
+    </view>
+  </view>
+</view>

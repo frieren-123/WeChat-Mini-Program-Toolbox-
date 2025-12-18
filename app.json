@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/about/index"
+    "pages/home/index",
+    "pages/tools/index",
+    "pages/about/index",
+    "pages/index/index"
   ],
   "subpackages": [
     {
@@ -21,6 +23,26 @@
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "Home"
+      },
+      {
+        "pagePath": "pages/tools/index",
+        "text": "Tools"
+      },
+      {
+        "pagePath": "pages/about/index",
+        "text": "About"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

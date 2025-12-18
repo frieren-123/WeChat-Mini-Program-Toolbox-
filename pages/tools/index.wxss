@@ -1,0 +1,65 @@
+.container {
+  padding: 32rpx;
+  /* background-color: #ffffff;  移除背景色以显示全局渐变 */
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
+}
+
+.card {
+  border-radius: 24rpx;
+  padding: 24rpx;
+  height: 240rpx;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.1s;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.card-content {
+  z-index: 2;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.card-desc {
+  font-size: 22rpx;
+  color: rgba(0,0,0,0.5);
+  display: block;
+}
+
+.card-icon {
+  position: absolute;
+  right: -20rpx;
+  bottom: -20rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  opacity: 0.8;
+  transform: rotate(-10deg);
+}

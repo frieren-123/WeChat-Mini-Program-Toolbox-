@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="header">
+    <text class="title">Toolbox</text>
+  </view>
+  
+  <view class="grid">
+    <view 
+      class="card" 
+      wx:for="{{tools}}" 
+      wx:key="id"
+      bindtap="onToolTap"
+      data-path="{{item.pagePath}}"
+      style="background-color: {{item.bg}};"
+    >
+      <view class="card-content">
+        <text class="card-title" style="color: {{item.color}};">{{item.name}}</text>
+        <text class="card-desc">{{item.desc}}</text>
+      </view>
+      <image class="card-icon" src="{{item.iconPath}}" mode="aspectFill" />
+    </view>
+  </view>
+</view>
