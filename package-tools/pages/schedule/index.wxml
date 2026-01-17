@@ -1,0 +1,132 @@
+<view class="container">
+  <!-- 顶部标题 -->
+  <view class="page-header">
+    <text class="page-title">我的课表</text>
+    <text class="page-subtitle">智能识别，轻松管理</text>
+  </view>
+
+  <!-- 无课表时的上传界面 -->
+  <view class="upload-section" wx:if="{{!hasSchedule && !isLoading && !showConfirm}}">
+    <view class="upload-card">
+      <view class="upload-icon-wrap">
+        <view class="upload-icon-inner">+</view>
+      </view>
+      <view class="upload-title">上传课表截图</view>
+      <view class="upload-desc">支持相册选择或拍照</view>
+      <view class="upload-btn" bindtap="uploadSchedule">选择图片</view>
+    </view>
+    
+    <view class="upload-card time-card" style="margin-top: 24rpx;">
+      <view class="upload-icon-wrap small">
+        <view class="upload-icon-inner small">+</view>
+      </view>
+      <view class="upload-title">上传作息时间表（可选）</view>
+      <view class="upload-desc">帮助更精确地识别上课时间</view>
+      <view class="upload-btn secondary" bindtap="uploadTimeTable">选择图片</view>
+    </view>
+    
+    <view class="demo-tip" bindtap="loadDemoSchedule">
+      <text>没有截图？点击使用示例课表体验</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-section" wx:if="{{isLoading}}">
+    <view class="loading-card">
+      <view class="loading-animation">
+        <view class="dot dot1"></view>
+        <view class="dot dot2"></view>
+        <view class="dot dot3"></view>
+      </view>
+      <view class="loading-text">AI正在识别课表...</view>
+      <view class="loading-hint">请稍候，这可能需要几秒钟</view>
+    </view>
+  </view>
+
+  <!-- 确认界面 - 对比原图和识别结果 -->
+  <view class="confirm-section" wx:if="{{showConfirm}}">
+    <view class="confirm-header">
+      <text class="confirm-title">请核对识别结果</text>
+      <text class="confirm-hint">左侧为原图，右侧为识别结果</text>
+    </view>
+    
+    <view class="compare-container">
+      <scroll-view class="compare-left" scroll-y>
+        <image class="original-image" src="{{scheduleImage}}" mode="widthFix" bindtap="previewImage"></image>
+      </scroll-view>
+      
+      <scroll-view class="compare-right" scroll-y>
+        <view class="recognized-schedule">
+          <view class="day-block" wx:for="{{weekDays}}" wx:key="day" wx:if="{{item.courses.length > 0}}">
+            <view class="day-header">{{item.day}}</view>
+            <view class="course-item-mini" wx:for="{{item.courses}}" wx:for-item="course" wx:key="name">
+              <text class="course-name-mini">{{course.name}}</text>
+              <text class="course-time-mini">{{course.time}}</text>
+              <text class="course-room-mini">{{course.room}}</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <view class="confirm-actions">
+      <view class="confirm-btn cancel" bindtap="cancelConfirm">重新上传</view>
+      <view class="confirm-btn confirm" bindtap="confirmSchedule">确认保存</view>
+    </view>
+  </view>
+
+  <!-- 课表展示 -->
+  <view class="schedule-section" wx:if="{{hasSchedule && !isLoading && !showConfirm}}">
+    <!-- 今日课程高亮 -->
+    <view class="today-highlight" wx:if="{{todayCourses.length > 0}}">
+      <view class="today-header">
+        <text class="today-label">今日课程</text>
+        <text class="today-date">{{todayStr}}</text>
+      </view>
+      <view class="today-list">
+        <view class="today-item {{item.isCurrent ? 'current' : ''}}" wx:for="{{todayCourses}}" wx:key="index">
+          <view class="today-time">{{item.time}}</view>
+          <view class="today-info">
+            <text class="today-name">{{item.name}}</text>
+            <text class="today-room">{{item.room}}</text>
+          </view>
+          <view class="current-badge" wx:if="{{item.isCurrent}}">正在上课</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="no-class-today" wx:elif="{{hasSchedule}}">
+      <text class="no-class-icon">~</text>
+      <text class="no-class-text">今日无课，好好休息</text>
+    </view>
+
+    <!-- 完整课表 -->
+    <view class="full-schedule">
+      <view class="schedule-header">
+        <text class="schedule-title">完整课表</text>
+        <view class="schedule-actions">
+          <text class="action-btn" bindtap="reuploadSchedule">更换</text>
+          <text class="action-btn danger" bindtap="clearSchedule">清除</text>
+        </view>
+      </view>
+      
+      <scroll-view class="schedule-scroll" scroll-x>
+        <view class="schedule-table">
+          <view class="table-header">
+            <view class="table-cell header time-cell">时间</view>
+            <view class="table-cell header" wx:for="{{['周一','周二','周三','周四','周五','周六','周日']}}" wx:key="*this">{{item}}</view>
+          </view>
+          <view class="table-row" wx:for="{{timeSlots}}" wx:key="slot" wx:for-item="slot">
+            <view class="table-cell time-cell">{{slot}}</view>
+            <view class="table-cell" wx:for="{{['周一','周二','周三','周四','周五','周六','周日']}}" wx:for-item="day" wx:key="*this">
+              <view class="cell-course" wx:for="{{getCourseByDayTime(day, slot)}}" wx:for-item="course" wx:key="name">
+                <text class="cell-name">{{course.name}}</text>
+                <text class="cell-room">{{course.room}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

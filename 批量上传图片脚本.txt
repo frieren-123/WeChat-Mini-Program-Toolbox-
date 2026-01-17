@@ -1,0 +1,190 @@
+# 批量上传图片到云存储
+
+## 方法1：使用云开发控制台（推荐，简单）
+
+1. 打开云开发控制台
+2. 点击"存储"
+3. 点击"上传文件"
+4. 可以一次选择多个文件上传
+5. 上传时选择对应的文件夹
+
+**优点：** 简单直观，适合新手
+**缺点：** 需要手动分类上传
+
+---
+
+## 方法2：使用云开发命令行工具（高级）
+
+### 安装云开发 CLI
+
+```bash
+npm install -g @cloudbase/cli
+```
+
+### 登录
+
+```bash
+tcb login
+```
+
+### 批量上传
+
+```bash
+# 上传 banners 文件夹
+tcb storage upload images/1002.jpg images/banners/1002.jpg -e your-env-id
+tcb storage upload images/1004.jpg images/banners/1004.jpg -e your-env-id
+tcb storage upload images/1005.jpg images/banners/1005.jpg -e your-env-id
+
+# 上传 cards 文件夹
+tcb storage upload images/001.jpg images/cards/001.jpg -e your-env-id
+tcb storage upload images/005.jpg images/cards/005.jpg -e your-env-id
+tcb storage upload images/006.jpg images/cards/006.jpg -e your-env-id
+tcb storage upload images/007.jpg images/cards/007.jpg -e your-env-id
+tcb storage upload images/012.jpg images/cards/012.jpg -e your-env-id
+tcb storage upload images/013.jpg images/cards/013.jpg -e your-env-id
+
+# 上传 scenery 文件夹
+tcb storage upload images/scenery/0001.jpg images/scenery/0001.jpg -e your-env-id
+tcb storage upload images/scenery/0002.jpg images/scenery/0002.jpg -e your-env-id
+tcb storage upload images/scenery/0003.jpg images/scenery/0003.jpg -e your-env-id
+tcb storage upload images/scenery/0004.jpg images/scenery/0004.jpg -e your-env-id
+tcb storage upload images/scenery/0005.jpg images/scenery/0005.jpg -e your-env-id
+tcb storage upload images/scenery/0006.jpg images/scenery/0006.jpg -e your-env-id
+tcb storage upload images/scenery/0007.jpg images/scenery/0007.jpg -e your-env-id
+
+# 上传 creatures 文件夹
+tcb storage upload images/creatures/0001.jpg images/creatures/0001.jpg -e your-env-id
+```
+
+**注意：** 将 `your-env-id` 替换为你的实际环境ID
+
+---
+
+## 方法3：使用小程序代码上传（自动化）
+
+创建一个临时页面，用于批量上传：
+
+```javascript
+// 临时上传页面 pages/upload/index.js
+Page({
+  uploadAll() {
+    const files = [
+      // banners
+      { local: '/images/1002.jpg', cloud: 'images/banners/1002.jpg' },
+      { local: '/images/1004.jpg', cloud: 'images/banners/1004.jpg' },
+      { local: '/images/1005.jpg', cloud: 'images/banners/1005.jpg' },
+      
+      // cards
+      { local: '/images/001.jpg', cloud: 'images/cards/001.jpg' },
+      { local: '/images/005.jpg', cloud: 'images/cards/005.jpg' },
+      { local: '/images/006.jpg', cloud: 'images/cards/006.jpg' },
+      { local: '/images/007.jpg', cloud: 'images/cards/007.jpg' },
+      { local: '/images/012.jpg', cloud: 'images/cards/012.jpg' },
+      { local: '/images/013.jpg', cloud: 'images/cards/013.jpg' },
+      
+      // scenery
+      { local: '/images/scenery/0001.jpg', cloud: 'images/scenery/0001.jpg' },
+      { local: '/images/scenery/0002.jpg', cloud: 'images/scenery/0002.jpg' },
+      { local: '/images/scenery/0003.jpg', cloud: 'images/scenery/0003.jpg' },
+      { local: '/images/scenery/0004.jpg', cloud: 'images/scenery/0004.jpg' },
+      { local: '/images/scenery/0005.jpg', cloud: 'images/scenery/0005.jpg' },
+      { local: '/images/scenery/0006.jpg', cloud: 'images/scenery/0006.jpg' },
+      { local: '/images/scenery/0007.jpg', cloud: 'images/scenery/0007.jpg' },
+      
+      // creatures
+      { local: '/images/creatures/0001.jpg', cloud: 'images/creatures/0001.jpg' },
+    ];
+    
+    let successCount = 0;
+    let failCount = 0;
+    
+    files.forEach((file, index) => {
+      wx.cloud.uploadFile({
+        cloudPath: file.cloud,
+        filePath: file.local,
+        success: res => {
+          successCount++;
+          console.log(`上传成功 [${successCount}/${files.length}]:`, file.cloud);
+          
+          if (successCount + failCount === files.length) {
+            wx.showModal({
+              title: '上传完成',
+              content: `成功：${successCount}，失败：${failCount}`,
+              showCancel: false
+            });
+          }
+        },
+        fail: err => {
+          failCount++;
+          console.error(`上传失败:`, file.cloud, err);
+          
+          if (successCount + failCount === files.length) {
+            wx.showModal({
+              title: '上传完成',
+              content: `成功：${successCount}，失败：${failCount}`,
+              showCancel: false
+            });
+          }
+        }
+      });
+    });
+  }
+});
+```
+
+**使用方法：**
+1. 创建临时页面
+2. 添加一个按钮调用 uploadAll()
+3. 点击按钮开始上传
+4. 等待上传完成
+5. 删除临时页面
+
+---
+
+## 推荐方案
+
+**新手推荐：** 方法1（云开发控制台）
+- 简单直观
+- 不需要额外工具
+- 适合少量文件
+
+**进阶推荐：** 方法2（命令行工具）
+- 适合批量操作
+- 可以写脚本自动化
+- 适合大量文件
+
+**开发推荐：** 方法3（代码上传）
+- 完全自动化
+- 适合频繁更新
+- 需要一定编程基础
+
+---
+
+## 上传后验证
+
+上传完成后，在云开发控制台检查：
+
+1. 文件数量是否正确（18个文件）
+2. 文件夹结构是否正确
+3. 文件大小是否正常
+4. 点击文件查看是否能预览
+
+---
+
+## 注意事项
+
+1. **文件路径区分大小写**
+   - 正确：`images/banners/1002.jpg`
+   - 错误：`Images/Banners/1002.jpg`
+
+2. **不要重复上传**
+   - 同名文件会被覆盖
+   - 建议先删除再上传
+
+3. **检查文件大小**
+   - 单个文件不超过 100MB
+   - 总存储不超过 5GB（免费版）
+
+4. **保留原文件**
+   - 上传后先测试
+   - 确认无误再删除本地文件

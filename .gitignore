@@ -1,5 +1,9 @@
 # WeChat DevTools
 project.private.config.json
+project.config.json
+
+# Environment Config (contains sensitive info)
+env.config.js
 
 # Node
 node_modules/
@@ -7,3 +11,7 @@ node_modules/
 # OS
 .DS_Store
 Thumbs.db
+
+# Documentation (optional, can be removed if you want to include them)
+*.md
+!README.md

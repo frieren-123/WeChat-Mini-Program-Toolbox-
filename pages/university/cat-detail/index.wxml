@@ -1,0 +1,87 @@
+<view class="container" wx:if="{{cat}}">
+  <!-- 轮播图 -->
+  <swiper 
+    class="photo-swiper" 
+    indicator-dots="{{false}}"
+    autoplay="{{true}}"
+    interval="{{4000}}"
+    circular="{{true}}"
+    bindchange="onSwiperChange"
+  >
+    <swiper-item wx:for="{{cat.photos}}" wx:key="index">
+      <image 
+        class="swiper-image" 
+        src="{{item}}" 
+        mode="aspectFill"
+        bindtap="previewImage"
+        data-src="{{item}}"
+      ></image>
+    </swiper-item>
+  </swiper>
+  
+  <!-- 自定义指示器 -->
+  <view class="indicator-dots">
+    <view 
+      class="dot {{currentPhotoIndex === index ? 'active' : ''}}" 
+      wx:for="{{cat.photos}}" 
+      wx:key="index"
+    ></view>
+  </view>
+
+  <!-- 基本信息卡片 -->
+  <view class="info-card">
+    <view class="cat-header">
+      <text class="cat-name">{{cat.name}}</text>
+      <text class="cat-gender {{cat.gender === '公' ? 'male' : 'female'}}">
+        {{cat.gender === '公' ? '♂' : '♀'}}
+      </text>
+    </view>
+    <view class="cat-location">📍 {{cat.location}}</view>
+  </view>
+
+  <!-- 详细信息 -->
+  <view class="detail-card">
+    <view class="card-title">🪪 身份证</view>
+    
+    <view class="info-grid">
+      <view class="info-item">
+        <text class="info-label">性别</text>
+        <text class="info-value">{{cat.gender}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">年龄</text>
+        <text class="info-value">{{cat.age}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">绝育状态</text>
+        <text class="info-value {{cat.neutered === '已绝育' ? 'green' : 'orange'}}">{{cat.neutered}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">配偶</text>
+        <text class="info-value">{{cat.hasSpouse}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 活动区域 -->
+  <view class="detail-card">
+    <view class="card-title">🗺️ 活动区域</view>
+    <view class="card-content">{{cat.activeArea}}</view>
+  </view>
+
+  <!-- 生活习性 -->
+  <view class="detail-card">
+    <view class="card-title">😺 生活习性</view>
+    <view class="card-content">{{cat.habits}}</view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer-tip">
+    <text>信息有误或想补充？</text>
+    <text class="highlight">联系开发者更新~</text>
+  </view>
+</view>
+
+<view class="empty-state" wx:else>
+  <text>未找到该小猫的信息</text>
+</view>

@@ -1,0 +1,201 @@
+page {
+  background-color: #f5f7fa;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+  padding-bottom: 60rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 0 32rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+
+.info-card {
+  padding: 0 32rpx;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;
+}
+
+.label {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.radio-group {
+  display: flex;
+  background: #f5f5f5;
+  border-radius: 32rpx;
+  padding: 4rpx;
+}
+
+.radio-item {
+  padding: 8rpx 32rpx;
+  font-size: 28rpx;
+  color: #666;
+  border-radius: 28rpx;
+  transition: all 0.3s;
+}
+
+.radio-item.active {
+  background: #fff;
+  color: #2E7D32;
+  font-weight: 600;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.picker-val {
+  font-size: 30rpx;
+  color: #666;
+}
+
+.divider {
+  height: 1rpx;
+  background: #eee;
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.input-row:last-child {
+  border-bottom: none;
+}
+
+.input-row input {
+  text-align: right;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.btn-calc {
+  background: #2E7D32;
+  color: #fff;
+  border-radius: 56rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+  height: 96rpx;
+  line-height: 96rpx;
+  margin-top: 16rpx;
+  box-shadow: 0 8rpx 24rpx rgba(46, 125, 50, 0.3);
+}
+
+.btn-calc:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.result-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+
+.score-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.score-val {
+  font-size: 80rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.score-val.pass {
+  color: #2E7D32;
+}
+
+.score-val.fail {
+  color: #D32F2F;
+}
+
+.score-label {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.bmi-info {
+  font-size: 30rpx;
+  color: #666;
+  background: #f5f5f5;
+  padding: 12rpx 32rpx;
+  border-radius: 32rpx;
+}
+
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 32rpx;
+  width: 100%;
+  margin-top: 40rpx;
+}
+
+.btn-save, .btn-history {
+  flex: 1;
+  font-size: 30rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: normal; /* Reset line-height to avoid conflict with flex */
+}
+
+.btn-save {
+  background: #2E7D32;
+  color: #fff;
+  box-shadow: 0 6rpx 16rpx rgba(46, 125, 50, 0.25);
+}
+
+.btn-history {
+  background: #fff;
+  color: #2E7D32;
+  border: 2rpx solid #2E7D32;
+  box-sizing: border-box;
+  /* line-height is handled by flex center */
+}
+
+.btn-save:active, .btn-history:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.history-entry {
+  margin-top: 32rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-history-simple {
+  background: transparent;
+  color: #666;
+  font-size: 28rpx;
+  text-decoration: underline;
+}

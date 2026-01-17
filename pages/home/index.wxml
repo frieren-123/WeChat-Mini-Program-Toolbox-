@@ -1,8 +1,19 @@
 <view class="container">
+  <!-- 自定义通知弹窗 -->
+  <custom-notice 
+    show="{{showNotice}}"
+    title="{{noticeTitle}}"
+    content="{{noticeContent}}"
+    showDontShowAgain="{{showDontShowAgain}}"
+    bind:confirm="onNoticeConfirm"
+    bind:dontshow="onNoticeDontShow"
+    bind:close="onNoticeClose"
+  />
+
   <!-- 顶部问候 -->
   <view class="header">
     <view class="greeting-box">
-      <text class="greeting-title">Home</text>
+      <text class="greeting-title" bindtap="onTitleTap">Home</text>
       <text class="greeting-text">{{greeting}}</text>
     </view>
     <image class="avatar" src="/images/008.jpg" mode="aspectFill" bindtap="onAvatarTap"></image>
@@ -17,11 +28,14 @@
     <view class="quote-icon">✎</view>
   </view>
 
-  <!-- 随机图片卡片 -->
+  <!-- 随机图片卡片 - 改为选择扩展入口 -->
   <view class="image-card" bindtap="onImageTap">
     <image class="random-img" src="{{randomImage}}" mode="aspectFill"></image>
     <view class="image-overlay">
-      <text class="image-hint">✨ 点击许愿</text>
+      <view class="extension-btn">
+        <text class="extension-icon">✨</text>
+        <text class="extension-text">{{selectedUniversity ? selectedUniversity : '选择扩展'}}</text>
+      </view>
     </view>
   </view>
 
@@ -29,9 +43,19 @@
   <view class="bottom-grid">
     <!-- 时间魔法 (年进度) -->
     <view class="grid-item" bindtap="onTimeMagicTap">
-      <view class="grid-header">
+      <view class="magic-header">
         <text class="grid-title">Time Magic</text>
-        <text class="grid-desc">{{yearProgress}}%</text>
+        <view class="total-badge" wx:if="{{upcomingEvent && upcomingEvent.totalCount > 0}}">{{upcomingEvent.totalCount}}</view>
+      </view>
+
+      <view class="magic-stats">
+        <text class="progress-text">{{yearProgress}}%</text>
+        <!-- 事件胶囊 -->
+        <view class="event-capsule" wx:if="{{upcomingEvent}}">
+          <text class="capsule-name">{{upcomingEvent.name}}</text>
+          <view class="capsule-separator"></view>
+          <text class="capsule-days">{{upcomingEvent.days}}天</text>
+        </view>
       </view>
       
       <!-- 翻动的魔法书动画 -->
@@ -48,7 +72,7 @@
       </view>
     </view>
 
-    <!-- 宝箱怪 (每日运势) -->
+    <!-- 宝箱怪 (课表提醒) -->
     <view class="grid-item" bindtap="onMimicTap">
       <view class="grid-header">
         <text class="grid-title">宝箱怪</text>
@@ -60,21 +84,167 @@
     </view>
   </view>
 
-  <!-- 许愿彩蛋弹窗 -->
-  <view class="modal-mask" wx:if="{{showWishModal}}" bindtap="closeWishModal">
-    <view class="modal-content" catchtap="true">
-      <view class="modal-title">彩蛋愿望</view>
-      <view class="modal-desc">希望你平平安安开开心心</view>
+  <!-- 日历弹窗 -->
+  <view class="modal-mask" wx:if="{{showCalendarModal}}" bindtap="closeCalendarModal">
+    <view class="modal-content calendar-modal" catchtap="stopPropagation">
+      <view class="calendar-header">
+        <view class="calendar-nav" bindtap="prevMonth">‹</view>
+        <view class="calendar-title">{{calendarYear}}年{{calendarMonth}}月</view>
+        <view class="calendar-nav" bindtap="nextMonth">›</view>
+      </view>
       
-      <!-- 跳动的角色 (随机显示 frieren001 或 frieren002) -->
-      <view class="cake-container">
-        <image class="cake-img" src="{{eggImage}}" mode="aspectFit" binderror="onImageError"></image>
+      <view class="calendar-weekdays">
+        <text wx:for="{{['日', '一', '二', '三', '四', '五', '六']}}" wx:key="*this">{{item}}</text>
+      </view>
+      
+      <view class="calendar-days">
+        <view 
+          class="calendar-day {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}} {{item.hasEvent ? 'has-event' : ''}} {{item.isEmpty ? 'empty' : ''}}"
+          wx:for="{{calendarDays}}"
+          wx:key="index"
+          bindtap="onDayTap"
+          data-date="{{item.date}}"
+          data-day="{{item.day}}"
+        >
+          <text>{{item.day}}</text>
+          <view class="event-dot" wx:if="{{item.hasEvent}}"></view>
+        </view>
+      </view>
+
+      <view class="important-dates-section" wx:if="{{importantDates.length > 0}}">
+        <view class="section-title-small">重要日期</view>
+        <view class="important-date-list">
+          <view class="important-date-item" wx:for="{{importantDates}}" wx:key="id">
+            <view class="date-info">
+              <text class="date-name">{{item.name}}</text>
+              <text class="date-countdown">{{item.countdown}}</text>
+            </view>
+            <view class="date-delete" bindtap="deleteImportantDate" data-id="{{item.id}}">×</view>
+          </view>
+        </view>
       </view>
 
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="closeWishModal">跳过</button>
-        <button class="modal-btn confirm" bindtap="onMakeWish">许愿</button>
+        <button class="modal-btn cancel" bindtap="closeCalendarModal">关闭</button>
+        <button class="modal-btn confirm" bindtap="addImportantDate">+ 添加重要日期</button>
       </view>
+    </view>
+  </view>
+
+  <!-- 添加日期弹窗 -->
+  <view class="modal-mask" wx:if="{{showAddDateModal}}" bindtap="closeAddDateModal">
+    <view class="modal-content add-date-modal" catchtap="stopPropagation">
+      <view class="modal-title">添加重要日期</view>
+      
+      <view class="form-group">
+        <text class="form-label">事件名称</text>
+        <input 
+          class="form-input" 
+          placeholder="如：期末考试、生日、纪念日"
+          value="{{newEventName}}"
+          bindinput="onEventNameInput"
+        />
+      </view>
+      
+      <view class="form-group">
+        <text class="form-label">选择日期</text>
+        <picker mode="date" value="{{newEventDate}}" start="2020-01-01" end="2030-12-31" bindchange="onDatePickerChange">
+          <view class="date-picker-btn">
+            <text>{{newEventDate || '点击选择日期'}}</text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closeAddDateModal">取消</button>
+        <button class="modal-btn confirm" bindtap="confirmAddDate">确认添加</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选择扩展弹窗 -->
+  <view class="modal-mask" wx:if="{{showWishModal}}" bindtap="closeWishModal">
+    <view class="modal-content university-modal" catchtap="stopPropagation">
+      <view class="modal-title">选择扩展</view>
+      
+      <!-- 顶部装饰图片 -->
+      <view class="wish-avatar-wrap">
+        <image class="wish-avatar" src="{{wishAvatar}}" mode="aspectFill"></image>
+      </view>
+      <view class="modal-desc">
+        <text class="bounce-text">希望你平平安安开开心心</text>
+      </view>
+      
+      <!-- 大学选择列表 -->
+      <view class="university-list">
+        <view 
+          class="university-option {{universityIndex[0] === index ? 'selected' : ''}}"
+          wx:for="{{universities}}" 
+          wx:key="index"
+          bindtap="selectUniversity"
+          data-index="{{index}}"
+        >
+          <text class="option-text">{{item}}</text>
+          <view class="option-check" wx:if="{{universityIndex[0] === index}}"></view>
+        </view>
+      </view>
+
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closeWishModal">取消</button>
+        <button class="modal-btn confirm" bindtap="confirmUniversity">确认</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 密码输入弹窗 -->
+  <view class="modal-mask" wx:if="{{showPasswordModal}}" bindtap="closePasswordModal">
+    <view class="modal-content password-modal {{passwordError ? 'shake' : ''}}" catchtap="stopPropagation">
+      <view class="modal-title">{{passwordTitle}}</view>
+      <view class="modal-desc">{{passwordHint}}</view>
+      
+      <input 
+        class="password-input {{passwordError ? 'error' : ''}}" 
+        type="text" 
+        placeholder="{{passwordPlaceholder}}"
+        value="{{passwordInput}}"
+        bindinput="onPasswordInput"
+        focus="{{showPasswordModal}}"
+      />
+      
+      <view class="error-hint" wx:if="{{passwordError}}">
+        <text class="error-icon">✕</text>
+        <text class="error-text">口令错误，请重试</text>
+      </view>
+
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closePasswordModal">取消</button>
+        <button class="modal-btn confirm" bindtap="verifyPassword">进入</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 宝箱怪弹窗 -->
+  <view class="modal-mask" wx:if="{{showMimicModal}}" bindtap="closeMimicModal">
+    <view class="modal-content mimic-modal" catchtap="stopPropagation">
+      <view class="mimic-title">{{mimicResult}}</view>
+      <view class="mimic-message">{{mimicMessage}}</view>
+      <view class="mimic-btn" bindtap="closeMimicModal">知道了</view>
+    </view>
+  </view>
+
+  <!-- 旅时手记开发中弹窗 -->
+  <view class="modal-mask" wx:if="{{showJourneyDevModal}}" bindtap="closeJourneyDevModal">
+    <view class="modal-content journey-dev-modal" catchtap="stopPropagation">
+      <image class="journey-avatar" src="/images/frieren004.jpg" mode="aspectFill"></image>
+      <view class="journey-title">✨ 旅时手记</view>
+      <view class="journey-desc">
+        <text class="journey-line">这是一个为爱好者准备的</text>
+        <text class="journey-line">特别空间</text>
+        <text class="journey-line journey-highlight">目前正在精心打磨中</text>
+        <text class="journey-line">敬请期待...</text>
+      </view>
+      <view class="journey-btn" bindtap="closeJourneyDevModal">期待中</view>
     </view>
   </view>
 </view>

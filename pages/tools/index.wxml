@@ -3,7 +3,22 @@
     <text class="title">Toolbox</text>
   </view>
   
-  <view class="grid">
+  <!-- 分类切换 -->
+  <view class="tab-switch">
+    <view 
+      class="tab-item {{currentTab === 'tools' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="tools"
+    >通用</view>
+    <view 
+      class="tab-item {{currentTab === 'schedule' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="schedule"
+    >课表</view>
+  </view>
+
+  <!-- 通用工具列表 -->
+  <view class="grid" wx:if="{{currentTab === 'tools'}}">
     <view 
       class="card" 
       wx:for="{{tools}}" 
@@ -19,4 +34,57 @@
       <image class="card-icon" src="{{item.iconPath}}" mode="aspectFill" />
     </view>
   </view>
+
+  <!-- 课表内容 -->
+  <view class="schedule-section" wx:if="{{currentTab === 'schedule'}}">
+    <!-- 未导入课表状态 -->
+    <view class="schedule-empty" wx:if="{{!hasSchedule}}">
+      <view class="empty-icon-wrap">
+        <view class="empty-icon">+</view>
+      </view>
+      <view class="empty-title">还没有课表</view>
+      <view class="empty-desc">上传课表截图，AI智能识别</view>
+      <view class="empty-btn" bindtap="goToSchedulePage">导入课表</view>
+      <view class="demo-link" bindtap="loadDemoSchedule">没有截图？点击体验示例</view>
+    </view>
+
+    <!-- 已导入课表状态 -->
+    <view class="schedule-content" wx:if="{{hasSchedule}}">
+      <!-- 今日课程 -->
+      <view class="today-section">
+        <view class="section-header">
+          <text class="section-title">今日课程</text>
+          <text class="today-date">{{todayDate}}</text>
+        </view>
+        
+        <view class="today-empty" wx:if="{{todayCourses.length === 0}}">
+          <text>今天没有课，好好休息吧~</text>
+        </view>
+        
+        <view class="course-list" wx:if="{{todayCourses.length > 0}}">
+          <view class="course-item" wx:for="{{todayCourses}}" wx:key="index">
+            <view class="course-time">
+              <text class="time-start">{{item.startTime}}</text>
+              <text class="time-end">{{item.endTime}}</text>
+            </view>
+            <view class="course-info">
+              <text class="course-name">{{item.name}}</text>
+              <text class="course-location">{{item.location}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="schedule-actions">
+        <view class="action-btn" bindtap="goToSchedulePage">
+          <text>查看完整课表</text>
+        </view>
+        <view class="action-btn secondary" bindtap="reimportSchedule">
+          <text>重新导入</text>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
+

@@ -1,0 +1,82 @@
+<view class="container">
+  <view class="card info-card">
+    <view class="form-row">
+      <text class="label">性别</text>
+      <view class="radio-group">
+        <view 
+          class="radio-item {{gender === 'male' ? 'active' : ''}}" 
+          bindtap="setGender" 
+          data-val="male"
+        >男生</view>
+        <view 
+          class="radio-item {{gender === 'female' ? 'active' : ''}}" 
+          bindtap="setGender" 
+          data-val="female"
+        >女生</view>
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="form-row">
+      <text class="label">年级</text>
+      <picker range="{{grades}}" bindchange="onGradeChange" value="{{gradeIndex}}">
+        <view class="picker-val">{{grades[gradeIndex]}} ></view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="card input-card">
+    <view class="input-row">
+      <text class="label">身高 (cm)</text>
+      <input type="digit" placeholder="0" bindinput="onInput" data-field="height" />
+    </view>
+    <view class="input-row">
+      <text class="label">体重 (kg)</text>
+      <input type="digit" placeholder="0" bindinput="onInput" data-field="weight" />
+    </view>
+    <view class="input-row">
+      <text class="label">肺活量 (ml)</text>
+      <input type="number" placeholder="0" bindinput="onInput" data-field="lung" />
+    </view>
+    <view class="input-row">
+      <text class="label">50米跑 (s)</text>
+      <input type="digit" placeholder="0" bindinput="onInput" data-field="run50" />
+    </view>
+    <view class="input-row">
+      <text class="label">立定跳远 (cm)</text>
+      <input type="number" placeholder="0" bindinput="onInput" data-field="jump" />
+    </view>
+    <view class="input-row">
+      <text class="label">坐位体前屈 (cm)</text>
+      <input type="digit" placeholder="0" bindinput="onInput" data-field="reach" />
+    </view>
+    <view class="input-row">
+      <text class="label">{{gender === 'male' ? '1000米跑 (s)' : '800米跑 (s)'}}</text>
+      <input type="digit" placeholder="0" bindinput="onInput" data-field="runLong" />
+    </view>
+    <view class="input-row">
+      <text class="label">{{gender === 'male' ? '引体向上 (次)' : '仰卧起坐 (次)'}}</text>
+      <input type="number" placeholder="0" bindinput="onInput" data-field="pull" />
+    </view>
+  </view>
+
+  <button class="btn-calc" bindtap="calculate">计算成绩</button>
+
+  <view class="result-card" wx:if="{{totalScore !== null}}">
+    <view class="score-header">
+      <view class="score-val {{totalScore >= 60 ? 'pass' : 'fail'}}">{{totalScore}}</view>
+      <view class="score-label">总分</view>
+    </view>
+    <view class="bmi-info">
+      <text>BMI: {{bmi}} ({{bmiStatus}})</text>
+    </view>
+    
+    <view class="action-row">
+      <button class="btn-save" bindtap="saveRecord">保存记录</button>
+      <button class="btn-history" bindtap="viewHistory">我的体测记录</button>
+    </view>
+  </view>
+  
+  <view class="history-entry" wx:else>
+     <button class="btn-history-simple" bindtap="viewHistory">查看历史记录</button>
+  </view>
+</view>

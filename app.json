@@ -1,9 +1,16 @@
 {
   "pages": [
     "pages/home/index",
+    "pages/university/index",
+    "pages/frieren/index",
     "pages/tools/index",
     "pages/about/index",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/ddl/index",
+    "pages/ddl/create/index",
+    "pages/ddl/detail/index",
+    "pages/university/cat-detail/index",
+    "pages/letter/index"
   ],
   "subpackages": [
     {
@@ -13,26 +20,44 @@
         "pages/unit-convert/index",
         "pages/qr-generator/index",
         "pages/random/index",
-        "pages/pomodoro/index"
+        "pages/pomodoro/index",
+        "pages/lottery/index",
+        "pages/schedule/index"
+      ]
+    },
+    {
+      "root": "package-student",
+      "pages": [
+        "pages/fitness/index",
+        "pages/fitness/history/index"
       ]
     }
   ],
   "window": {
-    "navigationBarTitleText": "工具箱",
+    "navigationBarTitleText": "Toolkit",
     "navigationBarTextStyle": "black",
-    "navigationBarBackgroundColor": "#ffffff",
-    "backgroundColor": "#ffffff",
+    "navigationBarBackgroundColor": "#F5F7FA",
+    "backgroundColor": "#F5F7FA",
     "backgroundTextStyle": "light"
   },
   "tabBar": {
+    "custom": true,
     "color": "#999999",
-    "selectedColor": "#07c160",
+    "selectedColor": "#89C4E1",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/home/index",
         "text": "Home"
+      },
+      {
+        "pagePath": "pages/university/index",
+        "text": "University"
+      },
+      {
+        "pagePath": "pages/frieren/index",
+        "text": "Frieren"
       },
       {
         "pagePath": "pages/tools/index",

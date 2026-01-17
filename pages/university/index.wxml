@@ -1,0 +1,98 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">河南理工大学</text>
+  </view>
+
+  <!-- 校区切换 -->
+  <view class="campus-tabs">
+    <view 
+      class="campus-tab {{currentCampus === 'south' ? 'active' : ''}}" 
+      bindtap="switchCampus" 
+      data-campus="south"
+    >南校区</view>
+    <view 
+      class="campus-tab {{currentCampus === 'north' ? 'active' : ''}}" 
+      bindtap="switchCampus" 
+      data-campus="north"
+    >北校区</view>
+  </view>
+
+  <!-- 分类导航 -->
+  <scroll-view class="category-scroll" scroll-x enable-flex>
+    <view 
+      class="category-item {{currentCategory === item.id ? 'active' : ''}} {{item.id === 'letter' ? 'small' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="id"
+      bindtap="switchCategory"
+      data-category="{{item.id}}"
+    >
+      <text class="category-name">{{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 心意(信件)内容 -->
+  <view class="content-area letter-area" wx:if="{{currentCategory === 'letter'}}">
+    <view class="letter-card-uni">
+        <view class="letter-header-uni">
+            <image class="letter-stamp-uni" src="/images/frieren004.jpg" mode="aspectFill"></image>
+            <view class="letter-date-uni">2026年1月</view>
+        </view>
+        
+        <view class="letter-body-uni">
+            <view class="letter-greeting-uni">亲爱的校友：</view>
+            
+            <view class="letter-para-uni">
+                这个功能是我想在毕业后留下一些校园回忆而做的。
+            </view>
+            
+            <view class="letter-para-uni">
+                我希望能记录下校园里的每一只小猫、每一处风景、每一栋建筑......当多年后再打开这个小程序，能看到那些熟悉的画面，想起那些美好的时光。
+            </view>
+            
+            <view class="letter-para-uni">
+                如果你也想为这里添砖加瓦，欢迎到「关于」页面上传校园信息，或者直接联系我：
+            </view>
+            
+            <view class="letter-contact-uni" bindtap="copyWechat">
+               微信：abc3533055815
+             </view>
+            
+            <view class="letter-para-uni">
+                上传时请提供：照片、名称、位置、以及任何你想分享的故事~
+            </view>
+            
+            <view class="letter-para-uni letter-quote-uni">
+                "让我们一起，把青春留在这里。"
+            </view>
+            
+            <view class="letter-signature-uni">
+                <view>—— JINSHENG</view>
+                <view class="letter-subtitle-uni">一个想留住校园记忆的学生</view>
+            </view>
+        </view>
+    </view>
+  </view>
+
+  <!-- 瀑布流内容 (非碎片时显示) -->
+  <view class="masonry-container" wx:if="{{currentCategory !== 'letter' && !loading}}">
+    <view class="masonry-item" wx:for="{{displayList}}" wx:key="id" bindtap="viewDetail" data-id="{{item.id}}">
+        <image class="masonry-image" src="{{item.image}}" mode="widthFix" lazy-load></image>
+        <view class="masonry-info">
+            <view class="masonry-title">{{item.name}}</view>
+        </view>
+    </view>
+  </view>
+  
+  <!-- 加载中状态 -->
+  <view class="loading-tip" wx:if="{{loading && currentCategory !== 'letter'}}">
+      <image class="loading-avatar" src="/images/frieren004.jpg" mode="aspectFill"></image>
+      <view class="loading-text">正在加载中，嘟嘟噜～</view>
+  </view>
+  
+  <!-- 空状态 -->
+  <view class="empty-tip" wx:if="{{!loading && currentCategory !== 'letter' && displayList.length === 0}}">
+      <view>暂无该校区内容~</view>
+      <view class="empty-sub">期待你的上传来丰富我们的回忆</view>
+  </view>
+</view>

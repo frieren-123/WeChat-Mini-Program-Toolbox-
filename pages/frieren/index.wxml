@@ -1,0 +1,152 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">Frieren</text>
+  </view>
+
+  <!-- 分类导航 -->
+  <scroll-view class="category-scroll" scroll-x enable-flex>
+    <view 
+      class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="id"
+      bindtap="switchCategory"
+      data-category="{{item.id}}"
+    >
+      <text class="category-name">{{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 旅行内容 -->
+  <view class="content-area" wx:if="{{currentCategory === 'travel'}}">
+    <view class="section-title">
+      <text class="title-text">旅行足迹</text>
+      <text class="title-count">共{{travels.length}}个地方</text>
+    </view>
+    
+    <view class="item-grid">
+      <view class="item-card" wx:for="{{travels}}" wx:key="id" bindtap="viewItemDetail" data-id="{{item.id}}" data-category="travel">
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-location">{{item.date}} · {{item.companion}}</view>
+      </view>
+    </view>
+    
+    <view class="empty-tip" wx:if="{{travels.length === 0}}">
+      <text>还没有旅行记录~</text>
+    </view>
+  </view>
+
+  <!-- 风景内容 -->
+  <view class="content-area" wx:if="{{currentCategory === 'scenery'}}">
+    <view class="section-title">
+      <text class="title-text">收藏的风景</text>
+    </view>
+    
+    <view class="item-grid">
+      <view class="item-card" wx:for="{{sceneries}}" wx:key="id" bindtap="viewItemDetail" data-id="{{item.id}}" data-category="scenery">
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-location">{{item.location}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 动漫内容 -->
+  <view class="content-area" wx:if="{{currentCategory === 'anime'}}">
+    <view class="section-title">
+      <text class="title-text">喜欢的动漫</text>
+    </view>
+    
+    <view class="item-grid">
+      <view class="item-card" wx:for="{{animes}}" wx:key="id" bindtap="viewItemDetail" data-id="{{item.id}}" data-category="anime">
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-location">{{item.genre}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 动漫女角色 -->
+  <view class="content-area" wx:if="{{currentCategory === 'waifu'}}">
+    <view class="section-title">
+      <text class="title-text">喜欢的角色</text>
+    </view>
+    
+    <view class="item-grid">
+      <view class="item-card" wx:for="{{waifus}}" wx:key="id" bindtap="viewItemDetail" data-id="{{item.id}}" data-category="waifu">
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-location">{{item.anime}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 歌曲 -->
+  <view class="content-area" wx:if="{{currentCategory === 'music'}}">
+    <view class="section-title">
+      <text class="title-text">喜欢的歌曲</text>
+    </view>
+    
+    <view class="music-list">
+      <view class="music-item" wx:for="{{musics}}" wx:key="id">
+        <view class="music-info">
+          <text class="music-name">{{item.name}}</text>
+          <text class="music-artist">{{item.artist}}</text>
+        </view>
+        <view class="music-icon">♪</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 小猫 -->
+  <view class="content-area" wx:if="{{currentCategory === 'cats'}}">
+    <view class="section-title">
+      <text class="title-text">遇见的小猫</text>
+    </view>
+    
+    <view class="item-grid">
+      <view class="item-card" wx:for="{{cats}}" wx:key="id" bindtap="viewItemDetail" data-id="{{item.id}}" data-category="cats">
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-location">{{item.location}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 小狗 -->
+  <view class="content-area" wx:if="{{currentCategory === 'dogs'}}">
+    <view class="section-title">
+      <text class="title-text">遇见的小狗</text>
+    </view>
+    
+    <view class="item-grid">
+      <view class="item-card" wx:for="{{dogs}}" wx:key="id" bindtap="viewItemDetail" data-id="{{item.id}}" data-category="dogs">
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-location">{{item.location}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 黄昏 -->
+  <view class="content-area" wx:if="{{currentCategory === 'sunset'}}">
+    <view class="section-title">
+      <text class="title-text">黄昏时刻</text>
+    </view>
+    
+    <view class="item-grid">
+      <view class="item-card" wx:for="{{sunsets}}" wx:key="id" bindtap="viewItemDetail" data-id="{{item.id}}" data-category="sunset">
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-location">{{item.date}} · {{item.location}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer-tip">
+    <text>这里是Himmel的私人空间</text>
+    <text class="highlight">记录生活中的美好瞬间~</text>
+  </view>
+</view>

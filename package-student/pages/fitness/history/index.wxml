@@ -1,0 +1,23 @@
+<view class="container">
+  <block wx:if="{{history.length > 0}}">
+    <view class="card record-item" wx:for="{{history}}" wx:key="timestamp">
+      <view class="record-header">
+        <view class="grade-badge">{{item.grade}}</view>
+        <text class="date">{{item.date}}</text>
+      </view>
+      <view class="record-body">
+        <view class="score-box">
+          <text class="score-val {{item.score >= 60 ? 'pass' : 'fail'}}">{{item.score}}</text>
+          <text class="score-label">总成绩</text>
+        </view>
+        <view class="info-box">
+          <text>BMI: {{item.bmi}}</text>
+          <text class="status">{{item.bmiStatus}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class="empty-state" wx:else>
+    <text>暂无记录，快去计算一次吧~</text>
+  </view>
+</view>

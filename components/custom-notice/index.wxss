@@ -1,0 +1,195 @@
+/* 遮罩层 */
+.notice-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 弹窗容器 */
+.notice-container {
+  width: 640rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8f4f8 100%);
+  border-radius: 32rpx;
+  padding: 60rpx 40rpx 40rpx;
+  position: relative;
+  box-shadow: 0 20rpx 60rpx rgba(137, 196, 225, 0.3);
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100rpx);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 关闭按钮 */
+.close-btn {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s;
+}
+
+.close-btn:active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(0.9);
+}
+
+.close-icon {
+  font-size: 32rpx;
+  color: #999;
+}
+
+/* 装饰图标 - 头像样式 */
+.notice-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 20rpx;
+}
+
+.notice-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4rpx solid #89C4E1;
+}
+
+/* 标题 */
+.notice-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30rpx;
+  line-height: 1.4;
+}
+
+/* 内容 */
+.notice-content {
+  margin-bottom: 40rpx;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+/* 色块样式 */
+.content-block {
+  padding: 24rpx 28rpx;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.content-block::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6rpx;
+}
+
+.content-block.primary {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3D6 100%);
+  border-left: 6rpx solid #FFB74D;
+}
+
+.content-block.secondary {
+  background: linear-gradient(135deg, #E3F2FD 0%, #D1E9F6 100%);
+  border-left: 6rpx solid #64B5F6;
+}
+
+.content-block.tertiary {
+  background: linear-gradient(135deg, #F3E5F5 0%, #E8D5ED 100%);
+  border-left: 6rpx solid #BA68C8;
+}
+
+.block-text {
+  font-size: 30rpx;
+  color: #2c3e50;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.block-text.small {
+  font-size: 26rpx;
+  color: #5a6c7d;
+}
+
+/* 按钮组 */
+.notice-buttons {
+  display: flex;
+  gap: 20rpx;
+  justify-content: center;
+}
+
+/* 次要按钮 */
+.btn-secondary {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #89C4E1;
+  background: rgba(137, 196, 225, 0.1);
+  border-radius: 40rpx;
+  border: 2rpx solid #89C4E1;
+  transition: all 0.3s;
+}
+
+.btn-secondary:active {
+  background: rgba(137, 196, 225, 0.2);
+  transform: scale(0.95);
+}
+
+/* 主要按钮 */
+.btn-primary {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: white;
+  background: linear-gradient(135deg, #89C4E1 0%, #6ba3c7 100%);
+  border-radius: 40rpx;
+  box-shadow: 0 8rpx 20rpx rgba(137, 196, 225, 0.4);
+  transition: all 0.3s;
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 10rpx rgba(137, 196, 225, 0.3);
+}

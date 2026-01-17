@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="header">
+    <text class="title">魔法委托</text>
+    <text class="subtitle">还有 {{totalCount}} 个任务待完成</text>
+  </view>
+
+  <view class="task-list">
+    <block wx:if="{{tasks.length > 0}}">
+      <view class="task-card {{item.urgent ? 'urgent' : ''}}" wx:for="{{tasks}}" wx:key="id" bindtap="editTask" data-id="{{item.id}}">
+        <view class="task-info">
+          <text class="task-name">{{item.name}}</text>
+          <text class="task-date">{{item.dateStr}} 截止</text>
+        </view>
+        <view class="task-status">
+          <text class="days-left">{{item.daysLeft}}</text>
+          <text class="days-unit">天</text>
+        </view>
+      </view>
+    </block>
+    <view class="empty-state" wx:else>
+      <text>暂无委托，享受宁静吧~</text>
+    </view>
+  </view>
+
+  <view class="fab-btn" bindtap="addTask">
+    <text>+</text>
+  </view>
+</view>

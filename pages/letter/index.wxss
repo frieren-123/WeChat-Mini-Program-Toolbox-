@@ -1,0 +1,101 @@
+page {
+  background: linear-gradient(180deg, #F9F9F7 0%, #E8E4DF 100%);
+  min-height: 100vh;
+}
+
+.container {
+  padding: 40rpx;
+  padding-bottom: 100rpx;
+}
+
+.letter-card {
+  background: #FFFEF9;
+  border-radius: 8rpx;
+  box-shadow: 
+    0 4rpx 20rpx rgba(0, 0, 0, 0.08),
+    inset 0 0 60rpx rgba(212, 175, 55, 0.05);
+  padding: 48rpx;
+  position: relative;
+  border: 1rpx solid rgba(212, 175, 55, 0.2);
+}
+
+.letter-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(90deg, #89C4E1, #B39DDB, #D4AF37);
+}
+
+.letter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48rpx;
+}
+
+.stamp {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  transform: rotate(5deg);
+}
+
+.date {
+  font-size: 24rpx;
+  color: #999;
+  font-style: italic;
+}
+
+.letter-body {
+  line-height: 2.2;
+}
+
+.greeting {
+  font-size: 32rpx;
+  color: #4A4A4A;
+  margin-bottom: 32rpx;
+  font-weight: 500;
+}
+
+.paragraph {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 28rpx;
+  text-indent: 2em;
+}
+
+.paragraph.quote {
+  font-style: italic;
+  color: #89C4E1;
+  text-align: center;
+  text-indent: 0;
+  padding: 24rpx;
+  background: rgba(137, 196, 225, 0.1);
+  border-radius: 12rpx;
+  border-left: 4rpx solid #89C4E1;
+}
+
+.signature {
+  text-align: right;
+  margin-top: 48rpx;
+  font-size: 28rpx;
+  color: #4A4A4A;
+}
+
+.signature .subtitle {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.back-hint {
+  text-align: center;
+  margin-top: 48rpx;
+  color: #89C4E1;
+  font-size: 28rpx;
+}

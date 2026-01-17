@@ -1,0 +1,164 @@
+page {
+  background-color: #F9F9F7;
+}
+
+.container {
+  padding-bottom: 60rpx;
+}
+
+/* 轮播图 */
+.photo-swiper {
+  width: 100%;
+  height: 500rpx;
+}
+
+.swiper-image {
+  width: 100%;
+  height: 100%;
+  background: #eee;
+}
+
+/* 指示器 */
+.indicator-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: -60rpx;
+  position: relative;
+  z-index: 10;
+  padding-bottom: 24rpx;
+}
+
+.dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 255, 255, 0.5);
+  margin: 0 8rpx;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  width: 32rpx;
+  background: #fff;
+}
+
+/* 信息卡片 */
+.info-card {
+  margin: 24rpx;
+  padding: 32rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.cat-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #4A4A4A;
+  margin-right: 16rpx;
+}
+
+.cat-gender {
+  font-size: 36rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 12rpx;
+}
+
+.cat-gender.male {
+  background: #E3F2FD;
+  color: #1976D2;
+}
+
+.cat-gender.female {
+  background: #FCE4EC;
+  color: #E91E63;
+}
+
+.cat-location {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 详细信息卡片 */
+.detail-card {
+  margin: 24rpx;
+  padding: 32rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #4A4A4A;
+  margin-bottom: 24rpx;
+}
+
+.card-content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 信息网格 */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #4A4A4A;
+  font-weight: 500;
+}
+
+.info-value.green {
+  color: #4CAF50;
+}
+
+.info-value.orange {
+  color: #FF9800;
+}
+
+/* 底部提示 */
+.footer-tip {
+  text-align: center;
+  padding: 40rpx;
+  color: #999;
+  font-size: 24rpx;
+}
+
+.footer-tip .highlight {
+  color: #89C4E1;
+  display: block;
+  margin-top: 8rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  color: #999;
+  font-size: 28rpx;
+}

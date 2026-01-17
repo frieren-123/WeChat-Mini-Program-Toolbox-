@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="card detail-card">
+    <view class="header">
+      <text class="title">{{task.name}}</text>
+      <view class="status-badge {{task.urgent ? 'urgent' : ''}}">
+        <text>剩余 {{task.daysLeft}} 天</text>
+      </view>
+    </view>
+    
+    <view class="date-row">
+      <text class="label">截止日期：</text>
+      <text class="value">{{task.date}}</text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section">
+      <text class="section-title">备注信息</text>
+      <text class="remark-text" wx:if="{{task.remark}}">{{task.remark}}</text>
+      <text class="empty-text" wx:else>暂无备注</text>
+    </view>
+
+    <view class="section" wx:if="{{task.images && task.images.length > 0}}">
+      <text class="section-title">相关图片</text>
+      <view class="image-grid">
+        <image 
+          wx:for="{{task.images}}" 
+          wx:key="*this" 
+          src="{{item}}" 
+          mode="aspectFill" 
+          class="image-item"
+          bindtap="previewImage"
+          data-src="{{item}}"
+        />
+      </view>
+    </view>
+  </view>
+
+  <view class="btn-area">
+    <button class="btn-delete" bindtap="deleteTask">放弃委托</button>
+  </view>
+</view>

@@ -1,6 +1,6 @@
 <view class="container">
   <view class="header">
-    <view class="logo-placeholder">
+    <view class="logo-placeholder" bindtap="onAvatarTap">
       <image 
         src="/images/003.jpg" 
         mode="aspectFill" 
@@ -8,29 +8,357 @@
       />
     </view>
     <view class="app-name" style="color: #000;">Frieren的万能口袋</view>
-    <view class="version muted">Version 1.1.0</view>
+    <view class="version muted">Version 1.2.0</view>
   </view>
 
+  <!-- 功能菜单 -->
   <view class="card menu-list">
-    <button class="menu-item" open-type="feedback">
+    <view class="menu-item" bindtap="onFeedback">
       <view class="menu-left">
         <text class="menu-text">功能建议 / 反馈</text>
       </view>
-      <view class="menu-arrow">></view>
-    </button>
+      <view class="menu-arrow">›</view>
+    </view>
     
     <view class="divider"></view>
 
-    <button class="menu-item" bindtap="onClearCache">
+    <view class="menu-item" bindtap="onUploadCampusInfo">
+      <view class="menu-left">
+        <text class="menu-text">上传校园信息</text>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="divider"></view>
+
+    <view class="menu-item" bindtap="onChangelog">
+      <view class="menu-left">
+        <text class="menu-text">更新日志</text>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="divider"></view>
+
+    <view class="menu-item" bindtap="onClearCache">
       <view class="menu-left">
         <text class="menu-text">清除缓存</text>
       </view>
-      <view class="menu-arrow">></view>
-    </button>
+      <view class="menu-right">
+        <text class="cache-size">{{cacheSize}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于与联系 -->
+  <view class="section-title">关于与联系</view>
+  <view class="card menu-list">
+    <view class="menu-item" bindtap="onPrivacyPolicy">
+      <view class="menu-left">
+        <text class="menu-text">隐私政策</text>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="divider"></view>
+
+    <view class="menu-item" bindtap="onUserAgreement">
+      <view class="menu-left">
+        <text class="menu-text">用户协议</text>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="divider"></view>
+
+    <view class="menu-item" bindtap="copyWechat">
+      <view class="menu-left">
+        <text class="menu-text">微信联系</text>
+      </view>
+      <view class="menu-right">
+        <text class="contact-text">abc3533055815</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开发者卡片 -->
+  <view class="developer-card card">
+    <view class="dev-quote">"就像芙莉莲收集魔法一样，我在收集有趣的人间片段，与那些无需咒语便能点亮心情的微小魔法。"</view>
   </view>
 
   <view class="footer muted">
-    <view>Designed by You</view>
+    <view>Designed by JINSHENG</view>
+    <view class="icp">豫ICP备2025159572号-1X</view>
     <view style="font-size: 20rpx; margin-top: 8rpx;">Powered by WeChat Mini Program</view>
+  </view>
+</view>
+
+<!-- 反馈弹窗 -->
+<view class="modal-overlay {{showFeedbackModal ? 'show' : ''}}" bindtap="closeFeedbackModal">
+  <view class="modal-content" catchtap>
+    <view class="modal-title">反馈建议</view>
+    <view class="feedback-types">
+      <view 
+        class="feedback-type {{feedbackType === 'bug' ? 'active' : ''}}" 
+        bindtap="selectFeedbackType" 
+        data-type="bug"
+      >Bug</view>
+      <view 
+        class="feedback-type {{feedbackType === 'suggest' ? 'active' : ''}}" 
+        bindtap="selectFeedbackType" 
+        data-type="suggest"
+      >建议</view>
+      <view 
+        class="feedback-type {{feedbackType === 'optimize' ? 'active' : ''}}" 
+        bindtap="selectFeedbackType" 
+        data-type="optimize"
+      >优化</view>
+      <view 
+        class="feedback-type {{feedbackType === 'other' ? 'active' : ''}}" 
+        bindtap="selectFeedbackType" 
+        data-type="other"
+      >其他</view>
+    </view>
+    <textarea 
+      class="feedback-input" 
+      placeholder="请描述您的问题或建议..."
+      value="{{feedbackContent}}"
+      bindinput="onFeedbackInput"
+      maxlength="500"
+    ></textarea>
+    <view class="char-count">{{feedbackContent.length}}/500</view>
+    
+    <!-- 图片上传区 -->
+    <view class="image-upload-section">
+      <view class="upload-title">添加截图（可选）</view>
+      <view class="image-list">
+        <view class="image-item" wx:for="{{feedbackImages}}" wx:key="index">
+          <image src="{{item}}" mode="aspectFill"></image>
+          <view class="delete-btn" bindtap="deleteFeedbackImage" data-index="{{index}}">×</view>
+        </view>
+        <view class="add-image" bindtap="chooseFeedbackImage" wx:if="{{feedbackImages.length < 3}}">
+          <text>+</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="modal-buttons">
+      <view class="modal-btn cancel" bindtap="closeFeedbackModal">取消</view>
+      <view class="modal-btn confirm" bindtap="submitFeedback">提交</view>
+    </view>
+  </view>
+</view>
+
+<!-- 更新日志弹窗 -->
+<view class="modal-overlay {{showChangelogModal ? 'show' : ''}}" bindtap="closeChangelogModal">
+  <view class="modal-content changelog-modal" catchtap>
+    <view class="modal-title">更新日志</view>
+    <scroll-view scroll-y class="changelog-scroll">
+      <view class="changelog-item" wx:for="{{changelog}}" wx:key="version">
+        <view class="changelog-version">v{{item.version}}</view>
+        <view class="changelog-date">{{item.date}}</view>
+        <view class="changelog-changes">
+          <view wx:for="{{item.changes}}" wx:for-item="change" wx:key="*this">· {{change}}</view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="modal-buttons">
+      <view class="modal-btn confirm full" bindtap="closeChangelogModal">知道了</view>
+    </view>
+  </view>
+</view>
+
+<!-- 一封信弹窗 -->
+<view class="modal-overlay {{showLetterModal ? 'show' : ''}}" bindtap="closeLetterModal">
+  <view class="modal-content letter-modal" catchtap>
+    <view class="letter-header-mini">
+      <image class="letter-stamp" src="/images/frieren004.jpg" mode="aspectFill"></image>
+      <view class="letter-date">2026年1月</view>
+    </view>
+    
+    <scroll-view scroll-y class="letter-scroll">
+      <view class="letter-greeting">亲爱的朋友：</view>
+      
+      <view class="letter-para">
+        感谢你发现了这个小彩蛋！
+      </view>
+      
+      <view class="letter-para">
+        如果你觉得这个小程序还不错，希望你能把它分享给身边的朋友。也许某个正在为体测分数发愁的同学，或者需要一个方便工具箱的人，会因此感到开心。
+      </view>
+      
+      <view class="letter-para">
+        谢谢你愿意成为这个魔法的传播者。
+      </view>
+      
+      <view class="letter-para letter-quote">
+        "能够遇见你，是我的荣幸。"
+      </view>
+      
+      <view class="letter-signature">
+        <view>—— JINSHENG</view>
+        <view class="letter-subtitle">期待与更多朋友相遇</view>
+      </view>
+    </scroll-view>
+    
+    <view class="modal-buttons">
+      <view class="modal-btn cancel" bindtap="closeLetterModal">关闭</view>
+      <button class="modal-btn confirm share-btn" open-type="share">分享给朋友</button>
+    </view>
+  </view>
+</view>
+
+<!--  <button class="modal-btn confirm share-moments-btn" bindtap="onShareTimelineTap">分享朋友圈</button>
+     上传校园信息弹窗 -->
+<view class="modal-overlay {{showUploadModal ? 'show' : ''}}" bindtap="closeUploadModal">
+  <view class="modal-content upload-modal" catchtap>
+    <view class="modal-title">上传校园信息</view>
+    
+    <view class="upload-form">
+      <view class="form-item">
+        <text class="form-label">信息类型</text>
+        <picker mode="selector" range="{{uploadCategories}}" value="{{uploadCategoryIndex}}" bindchange="onUploadCategoryChange">
+          <view class="form-picker">
+            <text>{{uploadCategories[uploadCategoryIndex]}}</text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">名称</text>
+        <input class="form-input" placeholder="如：小橘、樱花大道" value="{{uploadName}}" bindinput="onUploadNameInput" />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">位置</text>
+        <input class="form-input" placeholder="如：图书馆门口、南校区食堂旁" value="{{uploadLocation}}" bindinput="onUploadLocationInput" />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">详细描述</text>
+        <textarea class="form-textarea" placeholder="分享一些关于它的故事..." value="{{uploadDescription}}" bindinput="onUploadDescInput" maxlength="200"></textarea>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">上传图片</text>
+        <view class="image-list">
+          <view class="image-item" wx:for="{{uploadImages}}" wx:key="index">
+            <image src="{{item}}" mode="aspectFill"></image>
+            <view class="delete-btn" bindtap="deleteUploadImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="add-image" bindtap="chooseUploadImage" wx:if="{{uploadImages.length < 3}}">
+            <text>+</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="modal-buttons">
+      <view class="modal-btn cancel" bindtap="closeUploadModal">取消</view>
+      <view class="modal-btn confirm" bindtap="submitUpload">提交</view>
+    </view>
+  </view>
+</view>
+
+<!-- 清除缓存确认弹窗 -->
+<view class="modal-overlay {{showClearModal ? 'show' : ''}}" bindtap="closeClearModal">
+  <view class="modal-content clear-modal" catchtap>
+    <view class="clear-icon-wrap">
+      <view class="clear-icon-inner"></view>
+    </view>
+    <view class="clear-title">确认清除缓存？</view>
+    <view class="clear-size">当前缓存：{{cacheSize}}</view>
+    <view class="clear-desc">
+      这将清除所有本地数据，包括课表、设置偏好、魔法委托、群抽签记录等。
+      <text class="clear-warning">此操作不可恢复。</text>
+    </view>
+    <view class="modal-buttons">
+      <view class="modal-btn cancel" bindtap="closeClearModal">再想想</view>
+      <view class="modal-btn danger" bindtap="confirmClearCache">确认清除</view>
+    </view>
+  </view>
+</view>
+
+<!-- 隐私政策弹窗 -->
+<view class="modal-overlay {{showPrivacyModal ? 'show' : ''}}" bindtap="closePrivacyModal">
+  <view class="modal-content policy-modal" catchtap>
+    <view class="policy-header">
+      <view class="policy-icon-wrap">
+        <view class="policy-icon-lock"></view>
+      </view>
+      <view class="policy-title">隐私政策</view>
+    </view>
+    <scroll-view scroll-y class="policy-scroll">
+      <view class="policy-section">
+        <view class="policy-subtitle">数据安全承诺</view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">我们不收集任何个人敏感信息</view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">所有数据仅存储在你的设备本地</view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">课表图片仅用于识别，不会上传存储</view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">你可以随时在设置中清除所有本地数据</view>
+      </view>
+      <view class="policy-footer-text">
+        "魔法师不会窥探他人的秘密"
+      </view>
+    </scroll-view>
+    <view class="modal-buttons single">
+      <view class="modal-btn confirm full" bindtap="closePrivacyModal">我已知晓</view>
+    </view>
+  </view>
+</view>
+
+<!-- 用户协议弹窗 -->
+<view class="modal-overlay {{showAgreementModal ? 'show' : ''}}" bindtap="closeAgreementModal">
+  <view class="modal-content policy-modal" catchtap>
+    <view class="policy-header">
+      <view class="policy-icon-wrap agreement">
+        <view class="policy-icon-doc"></view>
+      </view>
+      <view class="policy-title">用户协议</view>
+    </view>
+    <scroll-view scroll-y class="policy-scroll">
+      <view class="policy-section">
+        <view class="policy-subtitle">欢迎来到万能口袋</view>
+        <view class="policy-text">
+          感谢你选择使用这个小小的魔法工具集。
+        </view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">本小程序仅供学习娱乐使用</view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">请勿将其用于任何商业用途</view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">体测计算结果仅供参考，以官方为准</view>
+      </view>
+      <view class="policy-item">
+        <view class="policy-item-icon">·</view>
+        <view class="policy-item-text">继续使用即表示你同意以上条款</view>
+      </view>
+      <view class="policy-footer-text">
+        "愿这些小工具能在你的旅途中派上用场"
+      </view>
+    </scroll-view>
+    <view class="modal-buttons single">
+      <view class="modal-btn confirm full" bindtap="closeAgreementModal">我同意</view>
+    </view>
   </view>
 </view>

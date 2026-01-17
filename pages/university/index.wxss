@@ -1,0 +1,290 @@
+page {
+  background-color: #F9F9F7;
+}
+
+.container {
+  padding: 24rpx;
+  padding-bottom: 120rpx;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  padding: 32rpx 0 24rpx;
+}
+
+.page-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #4A4A4A;
+  letter-spacing: 4rpx;
+}
+
+/* 校区切换 */
+.campus-tabs {
+  display: flex;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 8rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+
+.campus-tab {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  border-radius: 20rpx;
+  transition: all 0.3s;
+}
+
+.campus-tab.active {
+  background: linear-gradient(135deg, #89C4E1, #B39DDB);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 分类导航 */
+.category-scroll {
+  white-space: nowrap;
+  margin-bottom: 32rpx;
+}
+
+.category-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 40rpx;
+  margin-right: 16rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  transition: all 0.3s;
+}
+
+.category-item.active {
+  background: #89C4E1;
+}
+
+.category-item.active .category-name {
+  color: #fff;
+}
+
+/* 小号按钮样式 */
+.category-item.small {
+  padding: 16rpx 32rpx; /* 稍微调大一点，比普通的小一点点 */
+}
+
+.category-item.small .category-name {
+  font-size: 26rpx; /* 字体也不要太小 */
+}
+
+
+.category-name {
+  font-size: 28rpx; 
+  color: #666;
+}
+
+/* 瀑布流容器 */
+.masonry-container {
+  column-count: 2;
+  column-gap: 24rpx;
+}
+
+.masonry-item {
+  break-inside: avoid; 
+  background: #fff;
+  border-radius: 24rpx;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06);
+  transform: translateZ(0); 
+  border: 1rpx solid rgba(0,0,0,0.02);
+}
+
+.masonry-image {
+  width: 100%;
+  display: block;
+}
+
+.masonry-info {
+  padding: 20rpx;
+}
+
+.masonry-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center; 
+}
+
+/* Empty Tip */
+.empty-tip {
+    text-align: center;
+    color: #999;
+    padding: 120rpx 0;
+}
+
+.empty-sub {
+    font-size: 24rpx;
+    margin-top: 16rpx;
+    color: #89C4E1; 
+    font-style: italic;
+}
+
+/* 恢复的信件样式 (prefix: letter-*-uni) */
+.letter-area {
+  padding: 0 12rpx; 
+}
+
+.letter-card-uni {
+  background: #FFFEF9;
+  border-radius: 16rpx;
+  box-shadow: 
+    0 4rpx 20rpx rgba(0, 0, 0, 0.08),
+    inset 0 0 60rpx rgba(212, 175, 55, 0.05); 
+  padding: 48rpx;
+  position: relative;
+  border: 1rpx solid rgba(212, 175, 55, 0.2);
+  margin-bottom: 40rpx;
+}
+
+/* 顶部彩色装饰条 */
+.letter-card-uni::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(90deg, #89C4E1, #B39DDB, #D4AF37);
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+
+.letter-header-uni {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48rpx;
+}
+
+.letter-stamp-uni {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  transform: rotate(5deg);
+}
+
+.letter-date-uni {
+  font-size: 24rpx;
+  color: #999;
+  font-style: italic;
+}
+
+.letter-body-uni {
+  line-height: 2.2;
+}
+
+.letter-greeting-uni {
+  font-size: 32rpx;
+  color: #4A4A4A;
+  margin-bottom: 32rpx;
+  font-weight: 500;
+}
+
+.letter-para-uni {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 28rpx;
+  text-indent: 2em; 
+}
+
+.letter-para-uni.letter-quote-uni {
+  font-style: italic;
+  color: #89C4E1; 
+  text-align: center;
+  text-indent: 0;
+  padding: 32rpx;
+  background: rgba(137, 196, 225, 0.1); 
+  border-radius: 12rpx;
+  border-left: 4rpx solid #89C4E1;
+  margin-top: 40rpx;
+}
+
+.letter-contact-uni {
+  margin: 24rpx 0;
+  text-align: center;
+  font-weight: 500;
+  color: #4A4A4A;
+  background: #F5F5F5;
+  padding: 24rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+
+
+.letter-signature-uni {
+  text-align: right;
+  margin-top: 48rpx;
+  font-size: 28rpx;
+  color: #4A4A4A;
+}
+
+.letter-signature-uni .letter-subtitle-uni {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+/* 加载中状态 */
+.loading-tip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.loading-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid #89C4E1;
+  margin-bottom: 30rpx;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #89C4E1;
+  animation: fadeInOut 1.5s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "说明": "将以下数据复制到对应的云数据库集合中",
+  
+  "banners集合数据": [
+    {
+      "_id": "banner001",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/banners/001.jpg",
+      "order": 1,
+      "enabled": true
+    },
+    {
+      "_id": "banner002",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/banners/002.jpg",
+      "order": 2,
+      "enabled": true
+    },
+    {
+      "_id": "banner003",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/banners/003.jpg",
+      "order": 3,
+      "enabled": true
+    },
+    {
+      "_id": "banner004",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/banners/004.jpg",
+      "order": 4,
+      "enabled": true
+    },
+    {
+      "_id": "banner005",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/banners/005.jpg",
+      "order": 5,
+      "enabled": true
+    },
+    {
+      "_id": "banner006",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/banners/006.jpg",
+      "order": 6,
+      "enabled": true
+    },
+    {
+      "_id": "banner007",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/banners/007.jpg",
+      "order": 7,
+      "enabled": true
+    }
+  ],
+  
+  "scenery集合数据": [
+    {
+      "_id": "scenery001",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/scenery/south/0001.jpg",
+      "name": "南校区·正门",
+      "campus": "south",
+      "order": 1,
+      "enabled": true
+    },
+    {
+      "_id": "scenery002",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/scenery/south/0002.jpg",
+      "name": "南校区·南门附近",
+      "campus": "south",
+      "order": 2,
+      "enabled": true
+    },
+    {
+      "_id": "scenery003",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/scenery/south/0003.jpg",
+      "name": "南校区·风景",
+      "campus": "south",
+      "order": 3,
+      "enabled": true
+    },
+    {
+      "_id": "scenery004",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/scenery/south/0004.jpg",
+      "name": "南校区·风景",
+      "campus": "south",
+      "order": 4,
+      "enabled": true
+    },
+    {
+      "_id": "scenery005",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/scenery/south/0005.jpg",
+      "name": "南校区·风景",
+      "campus": "south",
+      "order": 5,
+      "enabled": true
+    },
+    {
+      "_id": "scenery006",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/scenery/south/0006.jpg",
+      "name": "南校区·风景",
+      "campus": "south",
+      "order": 6,
+      "enabled": true
+    },
+    {
+      "_id": "scenery007",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/scenery/south/0007.jpg",
+      "name": "南校区·秋日",
+      "campus": "south",
+      "order": 7,
+      "enabled": true
+    }
+  ],
+  
+  "creatures集合数据": [
+    {
+      "_id": "creature001",
+      "imageUrl": "cloud://frieren-cloud-0gd6n3lr386ef01d.6672-frieren-cloud-0gd6n3lr386ef01d/images/creatures/south/001.jpg",
+      "name": "哈基米",
+      "campus": "south",
+      "order": 1,
+      "enabled": true,
+      "description": "一只神秘的小猫"
+    }
+  ],
+  
+  "config集合数据": [
+    {
+      "_id": "app_notice",
+      "type": "notice",
+      "enabled": true,
+      "title": "欢迎使用",
+      "content": "欢迎使用Frieren的万能口袋！\n\n这是一个功能丰富的校园工具箱，包含：\n• 校园风景浏览\n• 实用工具集合\n• 课程表管理\n• 更多功能持续更新中...\n\n祝你使用愉快！",
+      "showOnce": false,
+      "version": "1.0.0"
+    }
+  ],
+  
+  "使用说明": {
+    "步骤1": "在云开发控制台创建4个集合：banners, scenery, creatures, config",
+    "步骤2": "在每个集合中，点击'导入'按钮",
+    "步骤3": "选择对应的数据数组，导入到集合中",
+    "步骤4": "或者手动复制每条记录，点击'添加记录'粘贴",
+    "步骤5": "完成后，重启小程序即可看到效果"
+  }
+}

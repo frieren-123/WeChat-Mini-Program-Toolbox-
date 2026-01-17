@@ -1,0 +1,64 @@
+<view class="container">
+  <view class="card form-card">
+    <view class="form-item">
+      <text class="label">委托内容</text>
+      <input 
+        class="input" 
+        placeholder="例如：高等数学期末考试" 
+        placeholder-class="placeholder"
+        bindinput="onNameInput"
+        value="{{name}}"
+      />
+    </view>
+    
+    <view class="divider"></view>
+
+    <view class="form-item">
+      <text class="label">截止日期</text>
+      <picker 
+        mode="date" 
+        value="{{date}}" 
+        start="{{startDate}}" 
+        end="2030-12-31" 
+        bindchange="onDateChange"
+      >
+        <view class="picker-value {{date ? '' : 'placeholder'}}">
+          {{date || '请选择日期'}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="card form-card">
+    <view class="form-item-col">
+      <text class="label">备注信息</text>
+      <textarea 
+        class="textarea" 
+        placeholder="添加一些详细说明..." 
+        placeholder-class="placeholder"
+        bindinput="onRemarkInput"
+        value="{{remark}}"
+        auto-height
+      />
+    </view>
+    
+    <view class="divider"></view>
+
+    <view class="form-item-col">
+      <text class="label">相关图片</text>
+      <view class="image-grid">
+        <view class="image-item" wx:for="{{images}}" wx:key="*this">
+          <image src="{{item}}" mode="aspectFill" bindtap="previewImage" data-src="{{item}}" />
+          <view class="image-del" catchtap="deleteImage" data-index="{{index}}">×</view>
+        </view>
+        <view class="image-add" bindtap="chooseImage" wx:if="{{images.length < 9}}">
+          <text>+</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="btn-area">
+    <button class="btn-submit" bindtap="saveTask">接受委托</button>
+  </view>
+</view>

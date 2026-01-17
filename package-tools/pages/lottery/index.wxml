@@ -1,0 +1,92 @@
+<view class="container">
+  <view class="tabs">
+    <view 
+      class="tab-item {{currentMode === 'draw' ? 'active' : ''}}" 
+      bindtap="switchMode" 
+      data-mode="draw"
+    >抓阄</view>
+    <view 
+      class="tab-item {{currentMode === 'sort' ? 'active' : ''}}" 
+      bindtap="switchMode" 
+      data-mode="sort"
+    >排序</view>
+    <view 
+      class="tab-item {{currentMode === 'group' ? 'active' : ''}}" 
+      bindtap="switchMode" 
+      data-mode="group"
+    >分组</view>
+  </view>
+
+  <view class="card input-card">
+    <view class="header">
+      <text class="title">参与名单</text>
+      <text class="subtitle">每行一个名字/项目</text>
+    </view>
+    <textarea 
+      class="input-area" 
+      placeholder="例如：&#10;张三&#10;李四&#10;王五" 
+      bindinput="onInput"
+      value="{{inputText}}"
+      maxlength="-1"
+      disable-default-padding="{{true}}"
+    />
+    <view class="actions">
+      <view class="btn-template" bindtap="showTemplates">使用模板</view>
+      <view class="btn-clear" bindtap="clearInput">清空</view>
+      <view class="btn-paste" bindtap="pasteInput">粘贴</view>
+    </view>
+  </view>
+
+  <view class="card setting-card" wx:if="{{currentMode === 'draw'}}">
+    <view class="setting-item">
+      <text class="label">抽取数量</text>
+      <input class="input-num" type="number" value="{{drawCount}}" bindinput="onDrawCountInput" />
+    </view>
+  </view>
+
+  <view class="card setting-card" wx:if="{{currentMode === 'group'}}">
+    <view class="setting-item">
+      <text class="label">分组数量</text>
+      <input class="input-num" type="number" value="{{groupCount}}" bindinput="onGroupCountInput" />
+    </view>
+  </view>
+
+  <button class="btn-start" bindtap="startLottery">开始{{modeName}}</button>
+
+  <!-- Result Modal -->
+  <view class="modal-mask" wx:if="{{showResult}}" bindtap="closeResult">
+    <view class="modal-content" catchtap="stopProp">
+      <view class="modal-header">
+        <text class="modal-title">结果公示</text>
+        <view class="modal-close" bindtap="closeResult">×</view>
+      </view>
+      
+      <scroll-view scroll-y class="result-scroll">
+        <block wx:if="{{currentMode === 'draw'}}">
+          <view class="result-item" wx:for="{{resultList}}" wx:key="*this">
+            <text class="rank">#{{index + 1}}</text>
+            <text class="name">{{item}}</text>
+          </view>
+        </block>
+
+        <block wx:if="{{currentMode === 'sort'}}">
+          <view class="result-item" wx:for="{{resultList}}" wx:key="*this">
+            <text class="rank">第 {{index + 1}} 位</text>
+            <text class="name">{{item}}</text>
+          </view>
+        </block>
+
+        <block wx:if="{{currentMode === 'group'}}">
+          <view class="group-item" wx:for="{{resultList}}" wx:key="index">
+            <view class="group-title">第 {{index + 1}} 组</view>
+            <view class="group-members">
+              <text wx:for="{{item}}" wx:for-item="member" wx:key="*this">{{member}}</text>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+
+      <button class="btn-copy" bindtap="copyResult">复制结果</button>
+    </view>
+  </view>
+</view>

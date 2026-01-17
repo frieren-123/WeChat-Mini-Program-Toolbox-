@@ -1,5 +1,17 @@
 const { compute, formatNumber } = require('../../../utils/calc');
 
+// 彩蛋配置
+const EASTER_EGGS = {
+  // 妈妈生日
+  '1105': '妈妈生日快乐 🎂',
+  '1206': '妈妈生日快乐 🎂',
+  '19791206': '妈妈生日快乐 🎂',
+  // 爸爸生日
+  '1006': '爸爸生日快乐 🎂',
+  '1107': '爸爸生日快乐 🎂',
+  '19781107': '爸爸生日快乐 🎂',
+};
+
 Page({
   data: {
     display: '0',
@@ -90,6 +102,14 @@ Page({
 
   onEquals() {
     const { display, accumulator, pendingOperator, overwrite } = this.data;
+    
+    // 检查彩蛋（无需运算符也能触发）
+    const easterEgg = this.checkEasterEgg(display);
+    if (easterEgg) {
+      this.showEasterEggModal(easterEgg);
+      return;
+    }
+    
     if (!pendingOperator || accumulator === null || overwrite) return;
 
     const current = Number(display);
@@ -102,4 +122,42 @@ Page({
       overwrite: true,
     });
   },
+
+  checkEasterEgg(input) {
+    // 移除小数点和负号
+    const cleanInput = input.replace(/[.\-]/g, '');
+    
+    // 检查预定义彩蛋
+    if (EASTER_EGGS[cleanInput]) {
+      return EASTER_EGGS[cleanInput];
+    }
+    
+    // 检查当前年份
+    const currentYear = new Date().getFullYear().toString();
+    if (cleanInput === currentYear) {
+      return `希望你${currentYear}年平平安安开开心心 ✨`;
+    }
+    
+    // 检查当天日期 (MMDD 格式)
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const today = month + day;
+    const todayAlt = String(now.getMonth() + 1) + day; // 如 104 代替 0104
+    
+    if (cleanInput === today || cleanInput === todayAlt) {
+      return '生命的终结是你的未来，也是我的过去\n——《夏日幽灵》';
+    }
+    
+    return null;
+  },
+
+  showEasterEggModal(message) {
+    wx.showModal({
+      title: '🎉 彩蛋',
+      content: message,
+      showCancel: false,
+      confirmText: '收到'
+    });
+  }
 });

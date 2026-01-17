@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="header">
+    <image class="header-icon" src="/images/frieren004.jpg" mode="aspectFill" />
+    <text class="header-title">旅时手记·共鸣自测</text>
+    <text class="header-subtitle">这里是你存放旅途中瞥见星光的地方</text>
+  </view>
+
+  <view class="quiz-area" wx:if="{{!showResult}}">
+    <view class="progress">
+      <text class="progress-text">{{currentQuestion + 1}} / {{questions.length}}</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{(currentQuestion + 1) / questions.length * 100}}%"></view>
+      </view>
+    </view>
+
+    <view class="question-card">
+      <text class="question-text">{{questions[currentQuestion].question}}</text>
+      
+      <view class="options">
+        <view 
+          class="option {{selectedAnswer === index ? 'selected' : ''}}"
+          wx:for="{{questions[currentQuestion].options}}"
+          wx:key="index"
+          data-index="{{index}}"
+          bindtap="selectAnswer"
+        >
+          <view class="option-label">{{['A', 'B', 'C', 'D'][index]}}</view>
+          <text class="option-text">{{item}}</text>
+        </view>
+      </view>
+
+      <button class="next-btn" bindtap="nextQuestion">
+        {{currentQuestion < questions.length - 1 ? '下一题' : '查看结果'}}
+      </button>
+    </view>
+  </view>
+
+  <view class="result-area" wx:if="{{showResult}}">
+    <image class="result-icon" src="/images/frieren005.jpg" mode="aspectFill" />
+    
+    <view class="result-card">
+      <text class="result-title">{{score >= 4 ? '共鸣已建立' : '还需要更多理解'}}</text>
+      <text class="result-score">{{score}} / {{questions.length}}</text>
+      
+      <text class="result-message" wx:if="{{score >= 4}}">
+        你对这部作品有着深刻的理解与共鸣。\n\n旅时手记的大门已为你敞开，\n在这里记录下你的感悟与思考吧。
+      </text>
+      
+      <text class="result-message" wx:else>
+        旅时手记是为真正理解并热爱这部作品的同好准备的空间。\n\n建议重新观看作品，感受其中的情感与哲学，再来尝试吧。
+      </text>
+
+      <view class="result-buttons">
+        <button class="retry-btn" bindtap="retryQuiz" wx:if="{{score < 4}}">重新作答</button>
+        <button class="enter-btn" bindtap="enterJourney" wx:if="{{score >= 4}}">进入旅时手记</button>
+        <button class="back-btn" bindtap="goBack">返回</button>
+      </view>
+    </view>
+  </view>
+</view>

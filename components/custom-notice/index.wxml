@@ -1,0 +1,33 @@
+<view class="notice-mask" wx:if="{{show}}" catchtap="onMaskTap">
+  <view class="notice-container" catchtap="stopPropagation">
+    <!-- 关闭按钮 -->
+    <view class="close-btn" catchtap="onClose">
+      <text class="close-icon">✕</text>
+    </view>
+    
+    <!-- 装饰图标 - 使用芙莉莲头像 -->
+    <view class="notice-icon">
+      <image class="notice-avatar" src="/images/frieren004.jpg" mode="aspectFill"></image>
+    </view>
+    
+    <!-- 标题 -->
+    <view class="notice-title">{{title}}</view>
+    
+    <!-- 内容 - 动态色块样式 -->
+    <view class="notice-content">
+      <view class="content-block {{item.color}}" wx:for="{{contentBlocks}}" wx:key="index">
+        <text class="block-text" wx:for="{{item.lines}}" wx:for-item="line" wx:key="index">{{line}}</text>
+      </view>
+    </view>
+    
+    <!-- 按钮组 -->
+    <view class="notice-buttons">
+      <view class="btn-secondary" catchtap="onDontShow" wx:if="{{showDontShowAgain}}">
+        不再显示
+      </view>
+      <view class="btn-primary" catchtap="onConfirm">
+        知道了
+      </view>
+    </view>
+  </view>
+</view>

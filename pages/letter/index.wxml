@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="letter-card">
+    <view class="letter-header">
+      <image class="stamp" src="/images/frieren004.jpg" mode="aspectFill"></image>
+      <view class="date">2026年1月</view>
+    </view>
+    
+    <view class="letter-body">
+      <view class="greeting">亲爱的你：</view>
+      
+      <view class="paragraph">
+        感谢你打开这个小程序。
+      </view>
+      
+      <view class="paragraph">
+        这是我的第一个微信小程序作品。从零开始学习、设计、开发，到现在能够呈现在你面前，我感到非常开心。
+      </view>
+      
+      <view class="paragraph">
+        我希望这个小工具能给你的生活带来一点便利，哪怕只是一点点。无论是查看课表、记录体测数据，还是单纯地看看校园里的小猫——如果它能让你的嘴角微微上扬，那就足够了。
+      </view>
+      
+      <view class="paragraph">
+        这个小程序致敬了一部关于时间与记忆的童话。就像那位精灵魔法使会花很长时间去做一些‘没有意义’的事情一样，我也想认真地做一些有温度的小东西。
+      </view>
+      
+      <view class="paragraph">
+        最后，希望你平平安安，开开心心。
+      </view>
+      
+      <view class="paragraph quote">
+        "我们并不是想在童话故事里流芳百世，而是想确实地存在于大家的记忆之中。"
+      </view>
+      
+      <view class="signature">
+        <view>—— JINSHENG</view>
+        <view class="subtitle">一个喜欢F的开发者</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="back-hint" bindtap="goBack">
+    <text>← 返回</text>
+  </view>
+</view>
